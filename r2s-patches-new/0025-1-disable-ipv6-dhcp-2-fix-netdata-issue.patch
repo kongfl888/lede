@@ -1,0 +1,30 @@
+From 314b571edae5d5e29b32674b7a6c9694f7b1a5e5 Mon Sep 17 00:00:00 2001
+From: Lawrence-Tang <tangzongsheng@gmail.com>
+Date: Fri, 28 Feb 2020 12:22:18 +0800
+Subject: [PATCH 25/39] 1) disable ipv6 dhcp 2) fix netdata issue
+
+---
+ package/base-files/files/root/setup.sh | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/package/base-files/files/root/setup.sh b/package/base-files/files/root/setup.sh
+index 9fece95..03bd658 100644
+--- a/package/base-files/files/root/setup.sh
++++ b/package/base-files/files/root/setup.sh
+@@ -117,4 +117,13 @@ if [ ${NEED_RESTART_SERVICE} -eq 1 ]; then
+     logger "setup.sh: restart network services"
+ fi
+ 
++# fix netdata issue
++[ -d /usr/share/netdata/web ] && chown -R root:root /usr/share/netdata/web
++
++# disable lan ipv6
++uci set 'network.lan.ipv6=off'
++uci set 'dhcp.lan.dhcpv6=disabled'
++/etc/init.d/odhcpd disable
++uci commit
++
+ logger "done"
+-- 
+2.14.1.windows.1
+

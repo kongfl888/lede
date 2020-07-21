@@ -1,0 +1,25 @@
+From 7d093edd714716843d89db3dbca2caedb4646491 Mon Sep 17 00:00:00 2001
+From: Lawrence-Tang <tangzongsheng@gmail.com>
+Date: Thu, 20 Feb 2020 14:50:55 +0800
+Subject: [PATCH 14/39] fix enable-swap.sh issue
+
+---
+ package/base-files/files/etc/enable-swap.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/package/base-files/files/etc/enable-swap.sh b/package/base-files/files/etc/enable-swap.sh
+index 695365c..76dc2b0 100755
+--- a/package/base-files/files/etc/enable-swap.sh
++++ b/package/base-files/files/etc/enable-swap.sh
+@@ -43,7 +43,7 @@ enable_swap() {
+ }
+ 
+ HASSWAP=`swapon -s`
+-if [ "x$HASSWAP" = "x" ]; then
++if ! grep swapfile ${HASSWAP} >/dev/null 2>&1; then
+     enable_swap
+ else
+     echo "swap has been enabled."
+-- 
+2.14.1.windows.1
+

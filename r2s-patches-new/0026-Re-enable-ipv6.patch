@@ -1,0 +1,27 @@
+From 1d900a2690f0bfa290f4e3a4b6bb5a53e8f84a63 Mon Sep 17 00:00:00 2001
+From: Lawrence-Tang <tangzongsheng@gmail.com>
+Date: Sat, 11 Apr 2020 09:57:42 +0800
+Subject: [PATCH 26/39] Re-enable ipv6
+
+---
+ package/base-files/files/root/setup.sh | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/package/base-files/files/root/setup.sh b/package/base-files/files/root/setup.sh
+index 03bd658..a207f7e 100644
+--- a/package/base-files/files/root/setup.sh
++++ b/package/base-files/files/root/setup.sh
+@@ -120,10 +120,4 @@ fi
+ # fix netdata issue
+ [ -d /usr/share/netdata/web ] && chown -R root:root /usr/share/netdata/web
+ 
+-# disable lan ipv6
+-uci set 'network.lan.ipv6=off'
+-uci set 'dhcp.lan.dhcpv6=disabled'
+-/etc/init.d/odhcpd disable
+-uci commit
+-
+ logger "done"
+-- 
+2.14.1.windows.1
+

@@ -1,0 +1,24 @@
+From aaca539fe05ea08a26314e6ae81e49c8c4306ca0 Mon Sep 17 00:00:00 2001
+From: Lawrence-Tang <tangzongsheng@gmail.com>
+Date: Fri, 3 Jan 2020 18:49:08 +0800
+Subject: [PATCH 08/39] add inittab for 3399
+
+---
+ target/linux/rockchip-rk3399/base-files/etc/inittab | 5 +++++
+ 1 file changed, 5 insertions(+)
+ create mode 100644 target/linux/rockchip-rk3399/base-files/etc/inittab
+
+diff --git a/target/linux/rockchip-rk3399/base-files/etc/inittab b/target/linux/rockchip-rk3399/base-files/etc/inittab
+new file mode 100644
+index 0000000..be81ab3
+--- /dev/null
++++ b/target/linux/rockchip-rk3399/base-files/etc/inittab
+@@ -0,0 +1,5 @@
++::sysinit:/etc/init.d/rcS S boot
++::shutdown:/etc/init.d/rcS K shutdown
++tts/0::askfirst:/usr/libexec/login.sh
++ttyS0::askfirst:/usr/libexec/login.sh
++tty1::askfirst:/usr/libexec/login.sh
+-- 
+2.14.1.windows.1
+

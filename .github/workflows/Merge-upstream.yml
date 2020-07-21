@@ -33,13 +33,15 @@ jobs:
     - name: Load upstream commits
       run:  |
         git checkout test
-        cp -f ./scripts/apply.sh /tmp/apply-le.sh
+        #cp -f ./scripts/apply.sh /tmp/apply-le.sh
+        cp -rf ./r2s-patches-new /tmp
         git branch nanopi-r2s || echo ""
         git checkout nanopi-r2s
         git remote add lean https://github.com/coolsnowwolf/lede.git
         git fetch lean master
         git reset --hard lean/master
-        . /tmp/apply-le.sh
+        #. /tmp/apply-le.sh
+        git am --whitespace=fix /tmp/r2s-patches-new/*.patch
         rm -rf .github/workflows
         git add .
         git commit -m "Remove workflows"
