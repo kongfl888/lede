@@ -31,12 +31,14 @@ jobs:
         git config --global user.name "kongfl888 K"
     - name: Load upstream commits
       run:  |
+        git checkout test
+        cp -f ./scripts/apply.sh /tmp/apply-le.sh
         git branch nanopi-r2s || echo ""
         git checkout nanopi-r2s
         git remote add lean https://github.com/coolsnowwolf/lede.git
         git fetch lean master
         git reset --hard lean/master
-        . scripts/apply.sh
+        . /tmp/apply-le.sh
     - name: Push Commits
       env:
         DOWNSTREAM_BRANCH: nanopi-r2s

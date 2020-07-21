@@ -31,7 +31,9 @@ jobs:
         git fetch lean master
         git branch master || echo ""
         git checkout master
+        git reset --hard lean/master
         git reset --hard e0c345df71ee9555f20235a6eaa35fd70b0ab3eb
+        git reset
     - name: Push Commits
       env:
         DOWNSTREAM_BRANCH: master
