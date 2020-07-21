@@ -35,7 +35,7 @@ jobs:
         git checkout nanopi-r2s
         git remote add lean https://github.com/coolsnowwolf/lede.git
         git fetch lean master
-        git reset --hard nanopi-r2s lean/master
+        git reset --hard lean/master
         . scripts/apply.sh
     - name: Push Commits
       env:
