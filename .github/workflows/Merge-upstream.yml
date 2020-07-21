@@ -39,6 +39,9 @@ jobs:
         git fetch lean master
         git reset --hard lean/master
         . /tmp/apply-le.sh
+        rm -rf .github/workflows
+        git add .
+        git commit -m "Remove workflows"
     - name: Push Commits
       env:
         DOWNSTREAM_BRANCH: nanopi-r2s
