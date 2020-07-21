@@ -27,13 +27,8 @@ jobs:
         git config --global user.name "kongfl888 K"
     - name: Git Init
       run:  |
-        git remote add lean https://github.com/coolsnowwolf/lede.git
-        git fetch lean master
-        git branch master || echo ""
         git checkout master
-        git reset --hard lean/master
         git reset --hard e0c345df71ee9555f20235a6eaa35fd70b0ab3eb
-        git reset --hard HEAD
     - name: Push Commits
       env:
         DOWNSTREAM_BRANCH: master
