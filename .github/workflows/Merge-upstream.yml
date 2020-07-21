@@ -8,6 +8,7 @@ on:
       - test
     paths:
       - '.github/workflows/Merge-upstream.yml'
+      - './scripts/apply.sh'
   schedule:
     - cron: '10 */8 * * *'
 
