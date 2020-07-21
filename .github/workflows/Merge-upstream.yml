@@ -1,0 +1,44 @@
+# [K] (c) 2020
+
+name: TEST
+
+on:
+  push:
+    branches:
+      - test
+    paths:
+      - '.github/workflows/Merge-upstream.yml'
+  schedule:
+    - cron: '10 */8 * * *'
+
+jobs:
+  merge:
+
+    runs-on: ubuntu-latest
+    if: github.repository == 'kongfl888/lede'
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@master
+      with:
+        ref: test
+        fetch-depth: 0
+        lfs: true
+
+    - name: Set git identity
+      run : |
+        git config --global user.email "kongfl888@outlook.com"
+        git config --global user.name "kongfl888 K"
+    - name: Load upstream commits
+      run:  |
+        git branch nanopi-r2s || echo ""
+        git checkout nanopi-r2s
+        git remote add lean https://github.com/coolsnowwolf/lede.git
+        git fetch lean master
+        git reset --hard nanopi-r2s lean/master
+        . scripts/apply.sh
+    - name: Push Commits
+      env:
+        DOWNSTREAM_BRANCH: nanopi-r2s
+      run:  |
+        git push --force-with-lease origin $DOWNSTREAM_BRANCH
