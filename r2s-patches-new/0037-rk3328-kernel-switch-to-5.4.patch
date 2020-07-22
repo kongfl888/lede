@@ -3,6 +3,7 @@ From: kongfl888 <kongfl888@outlook.com>
 Date: Tue, 7 Jul 2020 16:50:29 +0800
 Subject: [PATCH 37/39] rk3328: kernel switch to 5.4
 
+Signed-off-by: kongfl888 K <kongfl888@outlook.com>
 ---
  target/linux/rockchip-rk3328/Makefile   |   2 +-
  target/linux/rockchip-rk3328/config-5.4 | 613 ++++++++++++++++++++++++++++++++

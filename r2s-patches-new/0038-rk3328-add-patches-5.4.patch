@@ -1,7 +1,7 @@
-From 768a7c31c31fb26340720bf0cc5411bf687fe6ea Mon Sep 17 00:00:00 2001
+From 583743856678a3ce24d61bb2e80c120307e8886f Mon Sep 17 00:00:00 2001
 From: kongfl888 K <kongfl888@outlook.com>
-Date: Mon, 20 Jul 2020 01:51:54 +0800
-Subject: [PATCH 39/39] rk3328: add patches-5.4
+Date: Wed, 22 Jul 2020 02:23:59 +0800
+Subject: [PATCH 38/39] rk3328:add patches-5.4
 
 Signed-off-by: kongfl888 K <kongfl888@outlook.com>
 ---
@@ -13,14 +13,14 @@ Signed-off-by: kongfl888 K <kongfl888@outlook.com>
  .../003-nanopi-r2s-kernel-patches.patch            |  551 ++++++
  .../patches-5.4/004-rk3328_add_idle_state.patch    |   71 +
  .../patches-5.4/004-unlock-1512mhz-rk3328.patch    |   16 +
- .../patches-5.4/005-add_hwmon_support.patch        |   49 +
- .../patches-5.4/006-rk3328_add_mmc_reset.patch     |   39 +
- .../patches-5.4/007-add_mmc_poweroff.patch         |   93 +
- .../patches-5.4/008-mmc_rename.patch               |   55 +
+ .../patches-5.4/005-add_hwmon_support.patch        |   50 +
+ .../patches-5.4/006-rk3328_add_mmc_reset.patch     |   40 +
+ .../patches-5.4/007-add_mmc_poweroff.patch         |   94 +
+ .../patches-5.4/008-mmc_rename.patch               |   56 +
  .../009-rk3328_add_sdmmc_ext_node.patch            |   34 +
  .../patches-5.4/010-nanopi-r2s-rtl8152-leds.patch  |   36 +
  .../patches-5.4/011-nanopi-r2s-mac-frfom-dt.patch  |   40 +
- 15 files changed, 5452 insertions(+)
+ 15 files changed, 5456 insertions(+)
  create mode 100644 target/linux/rockchip-rk3328/patches-5.4/001-add-rk3328-dmc-driver.patch
  create mode 100644 target/linux/rockchip-rk3328/patches-5.4/001-rk3328_fix_wrong_mmc_shift.patch
  create mode 100644 target/linux/rockchip-rk3328/patches-5.4/002-add-rk3328-usb3-driver.patch
@@ -39,7 +39,7 @@ Signed-off-by: kongfl888 K <kongfl888@outlook.com>
 
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/001-add-rk3328-dmc-driver.patch b/target/linux/rockchip-rk3328/patches-5.4/001-add-rk3328-dmc-driver.patch
 new file mode 100644
-index 0000000..59f1c10
+index 0000000000..761429289f
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/001-add-rk3328-dmc-driver.patch
 @@ -0,0 +1,1796 @@
@@ -61,9 +61,9 @@ index 0000000..59f1c10
 +--- a/drivers/devfreq/Kconfig
 ++++ b/drivers/devfreq/Kconfig
 +@@ -115,6 +115,18 @@ config ARM_TEGRA20_DEVFREQ
-+	  It reads Memory Controller counters and adjusts the operating
-+	  frequencies and voltages with OPP support.
-+
++ 	  It reads Memory Controller counters and adjusts the operating
++ 	  frequencies and voltages with OPP support.
++ 
 ++config ARM_RK3328_DMC_DEVFREQ
 ++	tristate "ARM RK3328 DMC DEVFREQ Driver"
 ++	depends on ARCH_ROCKCHIP
@@ -77,21 +77,21 @@ index 0000000..59f1c10
 ++	  from hardware.
 ++
 + config ARM_RK3399_DMC_DEVFREQ
-+	tristate "ARM RK3399 DMC DEVFREQ Driver"
-+	depends on ARCH_ROCKCHIP
++ 	tristate "ARM RK3399 DMC DEVFREQ Driver"
++ 	depends on ARCH_ROCKCHIP
 +@@ -123,9 +135,9 @@ config ARM_RK3399_DMC_DEVFREQ
-+	select PM_DEVFREQ_EVENT
-+	select PM_OPP
-+	help
++ 	select PM_DEVFREQ_EVENT
++ 	select PM_OPP
++ 	help
 +-          This adds the DEVFREQ driver for the RK3399 DMC(Dynamic Memory Controller).
 +-          It sets the frequency for the memory controller and reads the usage counts
 +-          from hardware.
 ++	  This adds the DEVFREQ driver for the RK3399 DMC(Dynamic Memory Controller).
 ++	  It sets the frequency for the memory controller and reads the usage counts
 ++	  from hardware.
-+
++ 
 + source "drivers/devfreq/event/Kconfig"
-+
++ 
 +diff --git a/drivers/devfreq/Makefile b/drivers/devfreq/Makefile
 +index 338ae8440db6..ec568406ef50 100644
 +--- a/drivers/devfreq/Makefile
@@ -103,7 +103,7 @@ index 0000000..59f1c10
 ++obj-$(CONFIG_ARM_RK3328_DMC_DEVFREQ)	+= rk3328_dmc.o
 + obj-$(CONFIG_ARM_TEGRA_DEVFREQ)		+= tegra30-devfreq.o
 + obj-$(CONFIG_ARM_TEGRA20_DEVFREQ)	+= tegra20-devfreq.o
-+
++ 
 +diff --git a/drivers/devfreq/rk3328_dmc.c b/drivers/devfreq/rk3328_dmc.c
 +new file mode 100644
 +index 000000000000..9e3c87019ada
@@ -978,7 +978,7 @@ index 0000000..59f1c10
 +--- a/drivers/clk/rockchip/clk-ddr.c
 ++++ b/drivers/clk/rockchip/clk-ddr.c
 +@@ -87,6 +87,133 @@ static const struct clk_ops rockchip_ddrclk_sip_ops = {
-+	.get_parent = rockchip_ddrclk_get_parent,
++ 	.get_parent = rockchip_ddrclk_get_parent,
 + };
 +
 ++/* See v4.4/include/dt-bindings/display/rk_fb.h */
@@ -1109,26 +1109,26 @@ index 0000000..59f1c10
 ++};
 ++
 + struct clk *rockchip_clk_register_ddrclk(const char *name, int flags,
-+					 const char *const *parent_names,
-+					 u8 num_parents, int mux_offset,
++ 					 const char *const *parent_names,
++ 					 u8 num_parents, int mux_offset,
 +@@ -114,6 +241,9 @@ struct clk *rockchip_clk_register_ddrclk(const char *name, int flags,
-+	case ROCKCHIP_DDRCLK_SIP:
-+		init.ops = &rockchip_ddrclk_sip_ops;
-+		break;
++ 	case ROCKCHIP_DDRCLK_SIP:
++ 		init.ops = &rockchip_ddrclk_sip_ops;
++ 		break;
 ++	case ROCKCHIP_DDRCLK_SIP_V2:
 ++		init.ops = &rockchip_ddrclk_sip_ops_v2;
 ++		break;
-+	default:
-+		pr_err("%s: unsupported ddrclk type %d\n", __func__, ddr_flag);
-+		kfree(ddrclk);
++ 	default:
++ 		pr_err("%s: unsupported ddrclk type %d\n", __func__, ddr_flag);
++ 		kfree(ddrclk);
 +diff --git a/drivers/clk/rockchip/clk-rk3328.c b/drivers/clk/rockchip/clk-rk3328.c
 +index c186a1985bf4..ac6e6163a232 100644
 +--- a/drivers/clk/rockchip/clk-rk3328.c
 ++++ b/drivers/clk/rockchip/clk-rk3328.c
 +@@ -314,9 +314,10 @@ static struct rockchip_clk_branch rk3328_clk_branches[] __initdata = {
-+			RK3328_CLKGATE_CON(14), 1, GFLAGS),
++ 			RK3328_CLKGATE_CON(14), 1, GFLAGS),
 +
-+	/* PD_DDR */
++ 	/* PD_DDR */
 +-	COMPOSITE(0, "clk_ddr", mux_ddrphy_p, CLK_IGNORE_UNUSED,
 +-			RK3328_CLKSEL_CON(3), 8, 2, MFLAGS, 0, 3, DFLAGS | CLK_DIVIDER_POWER_OF_TWO,
 +-			RK3328_CLKGATE_CON(0), 4, GFLAGS),
@@ -1136,9 +1136,9 @@ index 0000000..59f1c10
 ++			RK3328_CLKSEL_CON(3), 8, 2, 0, 3,
 ++			ROCKCHIP_DDRCLK_SIP_V2),
 ++
-+	GATE(0, "clk_ddrmsch", "clk_ddr", CLK_IGNORE_UNUSED,
-+			RK3328_CLKGATE_CON(18), 6, GFLAGS),
-+	GATE(0, "clk_ddrupctl", "clk_ddr", CLK_IGNORE_UNUSED,
++ 	GATE(0, "clk_ddrmsch", "clk_ddr", CLK_IGNORE_UNUSED,
++ 			RK3328_CLKGATE_CON(18), 6, GFLAGS),
++ 	GATE(0, "clk_ddrupctl", "clk_ddr", CLK_IGNORE_UNUSED,
 +diff --git a/drivers/clk/rockchip/clk.h b/drivers/clk/rockchip/clk.h
 +index 2271a84124b0..7405aaf965ec 100644
 +--- a/drivers/clk/rockchip/clk.h
@@ -1152,7 +1152,7 @@ index 0000000..59f1c10
 ++#define ROCKCHIP_DDRCLK_SIP_V2		0x03
 +
 + struct clk *rockchip_clk_register_ddrclk(const char *name, int flags,
-+					 const char *const *parent_names,
++ 					 const char *const *parent_names,
 +diff --git a/include/soc/rockchip/rockchip_sip.h b/include/soc/rockchip/rockchip_sip.h
 +index c46a9ae2a2ab..fa7e0a2d72cc 100644
 +--- a/include/soc/rockchip/rockchip_sip.h
@@ -1191,7 +1191,7 @@ index 0000000..59f1c10
 +@@ -18,25 +18,66 @@
 + #include <linux/list.h>
 + #include <linux/of.h>
-+
++ 
 +-#include <soc/rockchip/rk3399_grf.h>
 +-
 +-#define RK3399_DMC_NUM_CH	2
@@ -1246,12 +1246,12 @@ index 0000000..59f1c10
 ++#define SOFTWARE_EN			(0x10001 << 1)
 ++#define SOFTWARE_DIS			(0x10000 << 1)
 ++#define TIME_CNT_EN			(0x10001 << 0)
-+
++ 
 + #define DDRMON_CH0_COUNT_NUM		0x28
 + #define DDRMON_CH0_DFI_ACCESS_NUM	0x2c
 + #define DDRMON_CH1_COUNT_NUM		0x3c
 + #define DDRMON_CH1_DFI_ACCESS_NUM	0x40
-+
++ 
 ++/* pmu grf */
 ++#define PMUGRF_OS_REG2			0x308
 ++
@@ -1265,20 +1265,20 @@ index 0000000..59f1c10
 ++};
 ++
 + struct dmc_usage {
-+	u32 access;
-+	u32 total;
++ 	u32 access;
++ 	u32 total;
 +@@ -50,33 +91,261 @@ struct dmc_usage {
 + struct rockchip_dfi {
-+	struct devfreq_event_dev *edev;
-+	struct devfreq_event_desc *desc;
++ 	struct devfreq_event_dev *edev;
++ 	struct devfreq_event_desc *desc;
 +-	struct dmc_usage ch_usage[RK3399_DMC_NUM_CH];
 ++	struct dmc_usage ch_usage[MAX_DMC_NUM_CH];
-+	struct device *dev;
-+	void __iomem *regs;
-+	struct regmap *regmap_pmu;
++ 	struct device *dev;
++ 	void __iomem *regs;
++ 	struct regmap *regmap_pmu;
 ++	struct regmap *regmap_grf;
 ++	struct regmap *regmap_pmugrf;
-+	struct clk *clk;
++ 	struct clk *clk;
 ++	u32 dram_type;
 ++	/*
 ++	 * available mask, 1: available, 0: not available
@@ -1511,11 +1511,11 @@ index 0000000..59f1c10
 ++	.get_event = rk3368_dfi_get_event,
 ++	.set_event = rk3368_dfi_set_event,
 + };
-+
++ 
 + static void rockchip_dfi_start_hardware_counter(struct devfreq_event_dev *edev)
 + {
-+	struct rockchip_dfi *info = devfreq_event_get_drvdata(edev);
-+	void __iomem *dfi_regs = info->regs;
++ 	struct rockchip_dfi *info = devfreq_event_get_drvdata(edev);
++ 	void __iomem *dfi_regs = info->regs;
 +-	u32 val;
 +-	u32 ddr_type;
 +-
@@ -1523,27 +1523,27 @@ index 0000000..59f1c10
 +-	regmap_read(info->regmap_pmu, RK3399_PMUGRF_OS_REG2, &val);
 +-	ddr_type = (val >> RK3399_PMUGRF_DDRTYPE_SHIFT) &
 +-		    RK3399_PMUGRF_DDRTYPE_MASK;
-+
-+	/* clear DDRMON_CTRL setting */
-+	writel_relaxed(CLR_DDRMON_CTRL, dfi_regs + DDRMON_CTRL);
-+
-+	/* set ddr type to dfi */
++ 
++ 	/* clear DDRMON_CTRL setting */
++ 	writel_relaxed(CLR_DDRMON_CTRL, dfi_regs + DDRMON_CTRL);
++ 
++ 	/* set ddr type to dfi */
 +-	if (ddr_type == RK3399_PMUGRF_DDRTYPE_LPDDR3)
 +-		writel_relaxed(LPDDR3_EN, dfi_regs + DDRMON_CTRL);
 +-	else if (ddr_type == RK3399_PMUGRF_DDRTYPE_LPDDR4)
 ++	if (info->dram_type == LPDDR3 || info->dram_type == LPDDR2)
 ++		writel_relaxed(LPDDR2_3_EN, dfi_regs + DDRMON_CTRL);
 ++	else if (info->dram_type == LPDDR4)
-+		writel_relaxed(LPDDR4_EN, dfi_regs + DDRMON_CTRL);
++ 		writel_relaxed(LPDDR4_EN, dfi_regs + DDRMON_CTRL);
 ++	else if (info->dram_type == DDR4)
 ++		writel_relaxed(DDR4_EN, dfi_regs + DDRMON_CTRL);
-+
-+	/* enable count, use software mode */
-+	writel_relaxed(SOFTWARE_EN, dfi_regs + DDRMON_CTRL);
++ 
++ 	/* enable count, use software mode */
++ 	writel_relaxed(SOFTWARE_EN, dfi_regs + DDRMON_CTRL);
 +@@ -100,12 +369,22 @@ static int rockchip_dfi_get_busier_ch(struct devfreq_event_dev *edev)
-+	rockchip_dfi_stop_hardware_counter(edev);
-+
-+	/* Find out which channel is busier */
++ 	rockchip_dfi_stop_hardware_counter(edev);
++ 
++ 	/* Find out which channel is busier */
 +-	for (i = 0; i < RK3399_DMC_NUM_CH; i++) {
 +-		info->ch_usage[i].access = readl_relaxed(dfi_regs +
 +-				DDRMON_CH0_DFI_ACCESS_NUM + i * 20) * 4;
@@ -1551,8 +1551,8 @@ index 0000000..59f1c10
 ++		if (!(info->ch_msk & BIT(i)))
 ++			continue;
 ++
-+		info->ch_usage[i].total = readl_relaxed(dfi_regs +
-+				DDRMON_CH0_COUNT_NUM + i * 20);
++ 		info->ch_usage[i].total = readl_relaxed(dfi_regs +
++ 				DDRMON_CH0_COUNT_NUM + i * 20);
 +-		tmp = info->ch_usage[i].access;
 ++
 ++		/* LPDDR4 BL = 16,other DDR type BL = 8 */
@@ -1564,23 +1564,23 @@ index 0000000..59f1c10
 ++			tmp *= 4;
 ++		info->ch_usage[i].access = tmp;
 ++
-+		if (tmp > max) {
-+			busier_ch = i;
-+			max = tmp;
++ 		if (tmp > max) {
++ 			busier_ch = i;
++ 			max = tmp;
 +@@ -121,7 +400,8 @@ static int rockchip_dfi_disable(struct devfreq_event_dev *edev)
-+	struct rockchip_dfi *info = devfreq_event_get_drvdata(edev);
-+
-+	rockchip_dfi_stop_hardware_counter(edev);
++ 	struct rockchip_dfi *info = devfreq_event_get_drvdata(edev);
++ 
++ 	rockchip_dfi_stop_hardware_counter(edev);
 +-	clk_disable_unprepare(info->clk);
 ++	if (info->clk)
 ++		clk_disable_unprepare(info->clk);
-+
-+	return 0;
++ 
++ 	return 0;
 + }
 +@@ -131,10 +411,13 @@ static int rockchip_dfi_enable(struct devfreq_event_dev *edev)
-+	struct rockchip_dfi *info = devfreq_event_get_drvdata(edev);
-+	int ret;
-+
++ 	struct rockchip_dfi *info = devfreq_event_get_drvdata(edev);
++ 	int ret;
++ 
 +-	ret = clk_prepare_enable(info->clk);
 +-	if (ret) {
 +-		dev_err(&edev->dev, "failed to enable dfi clk: %d\n", ret);
@@ -1592,25 +1592,25 @@ index 0000000..59f1c10
 ++				ret);
 ++			return ret;
 ++		}
-+	}
-+
-+	rockchip_dfi_start_hardware_counter(edev);
++ 	}
++ 
++ 	rockchip_dfi_start_hardware_counter(edev);
 +@@ -151,8 +434,11 @@ static int rockchip_dfi_get_event(struct devfreq_event_dev *edev,
 + {
-+	struct rockchip_dfi *info = devfreq_event_get_drvdata(edev);
-+	int busier_ch;
++ 	struct rockchip_dfi *info = devfreq_event_get_drvdata(edev);
++ 	int busier_ch;
 ++	unsigned long flags;
-+
++ 
 ++	local_irq_save(flags);
-+	busier_ch = rockchip_dfi_get_busier_ch(edev);
++ 	busier_ch = rockchip_dfi_get_busier_ch(edev);
 ++	local_irq_restore(flags);
-+
-+	edata->load_count = info->ch_usage[busier_ch].access;
-+	edata->total_count = info->ch_usage[busier_ch].total;
++ 
++ 	edata->load_count = info->ch_usage[busier_ch].access;
++ 	edata->total_count = info->ch_usage[busier_ch].total;
 +@@ -167,23 +453,117 @@ static const struct devfreq_event_ops rockchip_dfi_ops = {
-+	.set_event = rockchip_dfi_set_event,
++ 	.set_event = rockchip_dfi_set_event,
 + };
-+
++ 
 +-static const struct of_device_id rockchip_dfi_id_match[] = {
 +-	{ .compatible = "rockchip,rk3399-dfi" },
 +-	{ },
@@ -1623,7 +1623,7 @@ index 0000000..59f1c10
 ++	struct device_node *np = pdev->dev.of_node, *node;
 ++	struct resource *res;
 ++	u32 val;
-+
++ 
 +-static int rockchip_dfi_probe(struct platform_device *pdev)
 ++	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
 ++	data->regs = devm_ioremap_resource(&pdev->dev, res);
@@ -1724,23 +1724,23 @@ index 0000000..59f1c10
 ++				    struct rockchip_dfi *data,
 ++				    struct devfreq_event_desc *desc)
 + {
-+	struct device *dev = &pdev->dev;
++ 	struct device *dev = &pdev->dev;
 +-	struct rockchip_dfi *data;
-+	struct resource *res;
++ 	struct resource *res;
 +-	struct devfreq_event_desc *desc;
-+	struct device_node *np = pdev->dev.of_node, *node;
++ 	struct device_node *np = pdev->dev.of_node, *node;
 +-
 +-	data = devm_kzalloc(dev, sizeof(struct rockchip_dfi), GFP_KERNEL);
 +-	if (!data)
 +-		return -ENOMEM;
 ++	u32 val;
-+
-+	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	data->regs = devm_ioremap_resource(&pdev->dev, res);
++ 
++ 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++ 	data->regs = devm_ioremap_resource(&pdev->dev, res);
 +@@ -203,21 +583,97 @@ static int rockchip_dfi_probe(struct platform_device *pdev)
-+		if (IS_ERR(data->regmap_pmu))
-+			return PTR_ERR(data->regmap_pmu);
-+	}
++ 		if (IS_ERR(data->regmap_pmu))
++ 			return PTR_ERR(data->regmap_pmu);
++ 	}
 +-	data->dev = dev;
 ++
 ++	regmap_read(data->regmap_pmu, PMUGRF_OS_REG2, &val);
@@ -1807,11 +1807,11 @@ index 0000000..59f1c10
 ++	data = devm_kzalloc(dev, sizeof(struct rockchip_dfi), GFP_KERNEL);
 ++	if (!data)
 ++		return -ENOMEM;
-+
-+	desc = devm_kzalloc(dev, sizeof(*desc), GFP_KERNEL);
-+	if (!desc)
-+		return -ENOMEM;
-+
++ 
++ 	desc = devm_kzalloc(dev, sizeof(*desc), GFP_KERNEL);
++ 	if (!desc)
++ 		return -ENOMEM;
++ 
 +-	desc->ops = &rockchip_dfi_ops;
 ++	match = of_match_node(rockchip_dfi_id_match, pdev->dev.of_node);
 ++	if (match) {
@@ -1826,22 +1826,22 @@ index 0000000..59f1c10
 ++		return 0;
 ++	}
 ++
-+	desc->driver_data = data;
-+	desc->name = np->name;
-+	data->desc = desc;
++ 	desc->driver_data = data;
++ 	desc->name = np->name;
++ 	data->desc = desc;
 ++	data->dev = dev;
-+
++ 
 +-	data->edev = devm_devfreq_event_add_edev(&pdev->dev, desc);
 ++	data->edev = devm_devfreq_event_add_edev(dev, desc);
-+	if (IS_ERR(data->edev)) {
++ 	if (IS_ERR(data->edev)) {
 +-		dev_err(&pdev->dev,
 +-			"failed to add devfreq-event device\n");
 ++		dev_err(dev, "failed to add devfreq-event device\n");
-+		return PTR_ERR(data->edev);
-+	}
++ 		return PTR_ERR(data->edev);
++ 	}
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/001-rk3328_fix_wrong_mmc_shift.patch b/target/linux/rockchip-rk3328/patches-5.4/001-rk3328_fix_wrong_mmc_shift.patch
 new file mode 100644
-index 0000000..b296507
+index 0000000000..de7a866710
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/001-rk3328_fix_wrong_mmc_shift.patch
 @@ -0,0 +1,48 @@
@@ -1867,35 +1867,35 @@ index 0000000..b296507
 +--- a/drivers/clk/rockchip/clk-rk3328.c
 ++++ b/drivers/clk/rockchip/clk-rk3328.c
 +@@ -808,22 +808,22 @@ static struct rockchip_clk_branch rk3328_clk_branches[] __initdata = {
-+	MMC(SCLK_SDMMC_DRV, "sdmmc_drv", "clk_sdmmc",
-+	    RK3328_SDMMC_CON0, 1),
-+	MMC(SCLK_SDMMC_SAMPLE, "sdmmc_sample", "clk_sdmmc",
++ 	MMC(SCLK_SDMMC_DRV, "sdmmc_drv", "clk_sdmmc",
++ 	    RK3328_SDMMC_CON0, 1),
++ 	MMC(SCLK_SDMMC_SAMPLE, "sdmmc_sample", "clk_sdmmc",
 +-	    RK3328_SDMMC_CON1, 0),
 ++	    RK3328_SDMMC_CON1, 1),
-+
-+	MMC(SCLK_SDIO_DRV, "sdio_drv", "clk_sdio",
-+	    RK3328_SDIO_CON0, 1),
-+	MMC(SCLK_SDIO_SAMPLE, "sdio_sample", "clk_sdio",
++ 
++ 	MMC(SCLK_SDIO_DRV, "sdio_drv", "clk_sdio",
++ 	    RK3328_SDIO_CON0, 1),
++ 	MMC(SCLK_SDIO_SAMPLE, "sdio_sample", "clk_sdio",
 +-	    RK3328_SDIO_CON1, 0),
 ++	    RK3328_SDIO_CON1, 1),
-+
-+	MMC(SCLK_EMMC_DRV, "emmc_drv", "clk_emmc",
-+	    RK3328_EMMC_CON0, 1),
-+	MMC(SCLK_EMMC_SAMPLE, "emmc_sample", "clk_emmc",
++ 
++ 	MMC(SCLK_EMMC_DRV, "emmc_drv", "clk_emmc",
++ 	    RK3328_EMMC_CON0, 1),
++ 	MMC(SCLK_EMMC_SAMPLE, "emmc_sample", "clk_emmc",
 +-	    RK3328_EMMC_CON1, 0),
 ++	    RK3328_EMMC_CON1, 1),
-+
-+	MMC(SCLK_SDMMC_EXT_DRV, "sdmmc_ext_drv", "clk_sdmmc_ext",
-+	    RK3328_SDMMC_EXT_CON0, 1),
-+	MMC(SCLK_SDMMC_EXT_SAMPLE, "sdmmc_ext_sample", "clk_sdmmc_ext",
++ 
++ 	MMC(SCLK_SDMMC_EXT_DRV, "sdmmc_ext_drv", "clk_sdmmc_ext",
++ 	    RK3328_SDMMC_EXT_CON0, 1),
++ 	MMC(SCLK_SDMMC_EXT_SAMPLE, "sdmmc_ext_sample", "clk_sdmmc_ext",
 +-	    RK3328_SDMMC_EXT_CON1, 0),
 ++	    RK3328_SDMMC_EXT_CON1, 1),
 + };
-+
++ 
 + static const char *const rk3328_critical_clocks[] __initconst = {
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/002-add-rk3328-usb3-driver.patch b/target/linux/rockchip-rk3328/patches-5.4/002-add-rk3328-usb3-driver.patch
 new file mode 100644
-index 0000000..0d703c7
+index 0000000000..6a15af240f
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/002-add-rk3328-usb3-driver.patch
 @@ -0,0 +1,1424 @@
@@ -1916,9 +1916,9 @@ index 0000000..0d703c7
 +--- a/drivers/phy/rockchip/Kconfig
 ++++ b/drivers/phy/rockchip/Kconfig
 +@@ -35,6 +35,15 @@ config PHY_ROCKCHIP_INNO_USB2
-+	help
-+	  Support for Rockchip USB2.0 PHY with Innosilicon IP block.
-+
++ 	help
++ 	  Support for Rockchip USB2.0 PHY with Innosilicon IP block.
++ 
 ++config PHY_ROCKCHIP_INNO_USB3
 ++	tristate "Rockchip INNO USB 3.0 PHY Driver"
 ++	depends on (ARCH_ROCKCHIP || COMPILE_TEST) && OF
@@ -1929,8 +1929,8 @@ index 0000000..0d703c7
 ++	  Support for Rockchip USB 3.0 PHY with Innosilicon IP block.
 ++
 + config PHY_ROCKCHIP_PCIE
-+	tristate "Rockchip PCIe PHY Driver"
-+	depends on (ARCH_ROCKCHIP && OF) || COMPILE_TEST
++ 	tristate "Rockchip PCIe PHY Driver"
++ 	depends on (ARCH_ROCKCHIP && OF) || COMPILE_TEST
 +diff --git a/drivers/phy/rockchip/Makefile b/drivers/phy/rockchip/Makefile
 +index fd21cbaf40dd..d7b3d16c19ae 100644
 +--- a/drivers/phy/rockchip/Makefile
@@ -3232,15 +3232,15 @@ index 0000000..0d703c7
 ++   - "rockchip,u3phy-grf", "syscon"
 + - reg: physical base address of the controller and length of memory mapped
 +   region.
-+
++ 
 +diff --git a/arch/arm64/boot/dts/rockchip/rk3328.dtsi b/arch/arm64/boot/dts/rockchip/rk3328.dtsi
 +index 31cc1541f1f5..072e988ad655 100644
 +--- a/arch/arm64/boot/dts/rockchip/rk3328.dtsi
 ++++ b/arch/arm64/boot/dts/rockchip/rk3328.dtsi
 +@@ -805,6 +805,47 @@
-+		};
-+	};
-+
++ 		};
++ 	};
++ 
 ++	usb3phy_grf: syscon@ff460000 {
 ++		compatible = "rockchip,usb3phy-grf", "syscon";
 ++		reg = <0x0 0xff460000 0x0 0x1000>;
@@ -3282,13 +3282,13 @@ index 0000000..0d703c7
 ++		};
 ++	};
 ++
-+	sdmmc: dwmmc@ff500000 {
-+		compatible = "rockchip,rk3328-dw-mshc", "rockchip,rk3288-dw-mshc";
-+		reg = <0x0 0xff500000 0x0 0x4000>;
++ 	sdmmc: dwmmc@ff500000 {
++ 		compatible = "rockchip,rk3328-dw-mshc", "rockchip,rk3288-dw-mshc";
++ 		reg = <0x0 0xff500000 0x0 0x4000>;
 +@@ -936,6 +977,37 @@
-+		status = "disabled";
-+	};
-+
++ 		status = "disabled";
++ 	};
++ 
 ++	usbdrd3: usb@ff600000 {
 ++		compatible = "rockchip,rk3328-dwc3", "rockchip,rk3399-dwc3";
 ++		clocks = <&cru SCLK_USB3OTG_REF>, <&cru ACLK_USB3OTG>,
@@ -3320,12 +3320,12 @@ index 0000000..0d703c7
 ++		};
 ++	};
 ++
-+	gic: interrupt-controller@ff811000 {
-+		compatible = "arm,gic-400";
-+		#interrupt-cells = <3>;
++ 	gic: interrupt-controller@ff811000 {
++ 		compatible = "arm,gic-400";
++ 		#interrupt-cells = <3>;
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/003-add-nanopi-r2s-support.patch b/target/linux/rockchip-rk3328/patches-5.4/003-add-nanopi-r2s-support.patch
 new file mode 100644
-index 0000000..3463df5
+index 0000000000..3463df5c2e
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/003-add-nanopi-r2s-support.patch
 @@ -0,0 +1,780 @@
@@ -4111,7 +4111,7 @@ index 0000000..3463df5
 ++};
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/003-add-rk3328-rock-pi-e-support.patch b/target/linux/rockchip-rk3328/patches-5.4/003-add-rk3328-rock-pi-e-support.patch
 new file mode 100644
-index 0000000..d4e24be
+index 0000000000..d4e24be558
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/003-add-rk3328-rock-pi-e-support.patch
 @@ -0,0 +1,420 @@
@@ -4537,7 +4537,7 @@ index 0000000..d4e24be
 ++};
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/003-nanopi-r2s-kernel-patches.patch b/target/linux/rockchip-rk3328/patches-5.4/003-nanopi-r2s-kernel-patches.patch
 new file mode 100644
-index 0000000..f98717e
+index 0000000000..f98717ecf2
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/003-nanopi-r2s-kernel-patches.patch
 @@ -0,0 +1,551 @@
@@ -5094,7 +5094,7 @@ index 0000000..f98717e
 ++#endif /*_DT_BINDINGS_DRAM_ROCKCHIP_RK3328_H*/
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/004-rk3328_add_idle_state.patch b/target/linux/rockchip-rk3328/patches-5.4/004-rk3328_add_idle_state.patch
 new file mode 100644
-index 0000000..2b8d5de
+index 0000000000..1a62e29e1c
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/004-rk3328_add_idle_state.patch
 @@ -0,0 +1,71 @@
@@ -5119,40 +5119,40 @@ index 0000000..2b8d5de
 +--- a/arch/arm64/boot/dts/rockchip/rk3328.dtsi
 ++++ b/arch/arm64/boot/dts/rockchip/rk3328.dtsi
 +@@ -41,6 +41,7 @@
-+			reg = <0x0 0x0>;
-+			clocks = <&cru ARMCLK>;
-+			#cooling-cells = <2>;
++ 			reg = <0x0 0x0>;
++ 			clocks = <&cru ARMCLK>;
++ 			#cooling-cells = <2>;
 ++			cpu-idle-states = <&CPU_SLEEP>;
-+			dynamic-power-coefficient = <120>;
-+			enable-method = "psci";
-+			next-level-cache = <&l2>;
++ 			dynamic-power-coefficient = <120>;
++ 			enable-method = "psci";
++ 			next-level-cache = <&l2>;
 +@@ -53,6 +54,7 @@
-+			reg = <0x0 0x1>;
-+			clocks = <&cru ARMCLK>;
-+			#cooling-cells = <2>;
++ 			reg = <0x0 0x1>;
++ 			clocks = <&cru ARMCLK>;
++ 			#cooling-cells = <2>;
 ++			cpu-idle-states = <&CPU_SLEEP>;
-+			dynamic-power-coefficient = <120>;
-+			enable-method = "psci";
-+			next-level-cache = <&l2>;
++ 			dynamic-power-coefficient = <120>;
++ 			enable-method = "psci";
++ 			next-level-cache = <&l2>;
 +@@ -65,6 +67,7 @@
-+			reg = <0x0 0x2>;
-+			clocks = <&cru ARMCLK>;
-+			#cooling-cells = <2>;
++ 			reg = <0x0 0x2>;
++ 			clocks = <&cru ARMCLK>;
++ 			#cooling-cells = <2>;
 ++			cpu-idle-states = <&CPU_SLEEP>;
-+			dynamic-power-coefficient = <120>;
-+			enable-method = "psci";
-+			next-level-cache = <&l2>;
++ 			dynamic-power-coefficient = <120>;
++ 			enable-method = "psci";
++ 			next-level-cache = <&l2>;
 +@@ -77,12 +80,26 @@
-+			reg = <0x0 0x3>;
-+			clocks = <&cru ARMCLK>;
-+			#cooling-cells = <2>;
++ 			reg = <0x0 0x3>;
++ 			clocks = <&cru ARMCLK>;
++ 			#cooling-cells = <2>;
 ++			cpu-idle-states = <&CPU_SLEEP>;
-+			dynamic-power-coefficient = <120>;
-+			enable-method = "psci";
-+			next-level-cache = <&l2>;
-+			operating-points-v2 = <&cpu0_opp_table>;
-+		};
-+
++ 			dynamic-power-coefficient = <120>;
++ 			enable-method = "psci";
++ 			next-level-cache = <&l2>;
++ 			operating-points-v2 = <&cpu0_opp_table>;
++ 		};
++ 
 ++		idle-states {
 ++			entry-method = "psci";
 ++
@@ -5166,12 +5166,12 @@ index 0000000..2b8d5de
 ++			};
 ++		};
 ++
-+		l2: l2-cache0 {
-+			compatible = "cache";
-+		};
++ 		l2: l2-cache0 {
++ 			compatible = "cache";
++ 		};
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/004-unlock-1512mhz-rk3328.patch b/target/linux/rockchip-rk3328/patches-5.4/004-unlock-1512mhz-rk3328.patch
 new file mode 100644
-index 0000000..3e751dc
+index 0000000000..7d67233d62
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/004-unlock-1512mhz-rk3328.patch
 @@ -0,0 +1,16 @@
@@ -5180,23 +5180,23 @@ index 0000000..3e751dc
 +--- a/arch/arm64/boot/dts/rockchip/rk3328.dtsi
 ++++ b/arch/arm64/boot/dts/rockchip/rk3328.dtsi
 +@@ -125,6 +125,11 @@
-+			opp-microvolt = <1300000>;
-+			clock-latency-ns = <40000>;
-+		};
++ 			opp-microvolt = <1300000>;
++ 			clock-latency-ns = <40000>;
++ 		};
 ++		opp-1512000000 {
 ++			opp-hz = /bits/ 64 <1512000000>;
 ++			opp-microvolt = <1450000>;
 ++			clock-latency-ns = <40000>;
 ++		};
-+	};
-+
-+	amba {
++ 	};
++ 
++ 	amba {
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/005-add_hwmon_support.patch b/target/linux/rockchip-rk3328/patches-5.4/005-add_hwmon_support.patch
 new file mode 100644
-index 0000000..8bb79ed
+index 0000000000..bd6fe0754d
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/005-add_hwmon_support.patch
-@@ -0,0 +1,49 @@
+@@ -0,0 +1,50 @@
 +From f895f1f4de0b7252f29e7e5779727b303df9e58d Mon Sep 17 00:00:00 2001
 +From: schaecsn <schaecsn@gmx.net>
 +Date: Sun, 17 Nov 2019 21:24:13 -0800
@@ -5216,19 +5216,19 @@ index 0000000..8bb79ed
 +@@ -19,6 +19,8 @@
 + #include <linux/mfd/syscon.h>
 + #include <linux/pinctrl/consumer.h>
-+
++ 
 ++#include "thermal_hwmon.h"
 ++
 + /**
 +  * If the temperature over a period of time High,
 +  * the resulting TSHUT gave CRU module,let it reset the entire chip,
 +@@ -1321,8 +1323,15 @@ static int rockchip_thermal_probe(struct platform_device *pdev)
-+
-+	thermal->chip->control(thermal->regs, true);
-+
++ 
++ 	thermal->chip->control(thermal->regs, true);
++ 
 +-	for (i = 0; i < thermal->chip->chn_num; i++)
 ++	for (i = 0; i < thermal->chip->chn_num; i++) {
-+		rockchip_thermal_toggle_sensor(&thermal->sensors[i], true);
++ 		rockchip_thermal_toggle_sensor(&thermal->sensors[i], true);
 ++		thermal->sensors[i].tzd->tzp->no_hwmon = false;
 ++		error = thermal_add_hwmon_sysfs(thermal->sensors[i].tzd);
 ++		if (error)
@@ -5236,22 +5236,23 @@ index 0000000..8bb79ed
 ++				 "failed to register sensor %d with hwmon: %d\n",
 ++				 i, error);
 ++	}
-+
-+	platform_set_drvdata(pdev, thermal);
-+
++ 
++ 	platform_set_drvdata(pdev, thermal);
++ 
 +@@ -1344,6 +1353,7 @@ static int rockchip_thermal_remove(struct platform_device *pdev)
-+	for (i = 0; i < thermal->chip->chn_num; i++) {
-+		struct rockchip_thermal_sensor *sensor = &thermal->sensors[i];
-+
++ 	for (i = 0; i < thermal->chip->chn_num; i++) {
++ 		struct rockchip_thermal_sensor *sensor = &thermal->sensors[i];
++ 
 ++		thermal_remove_hwmon_sysfs(sensor->tzd);
-+		rockchip_thermal_toggle_sensor(sensor, false);
-+	}
++ 		rockchip_thermal_toggle_sensor(sensor, false);
++ 	}
++ 
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/006-rk3328_add_mmc_reset.patch b/target/linux/rockchip-rk3328/patches-5.4/006-rk3328_add_mmc_reset.patch
 new file mode 100644
-index 0000000..3e86597
+index 0000000000..c66fbfbbaf
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/006-rk3328_add_mmc_reset.patch
-@@ -0,0 +1,39 @@
+@@ -0,0 +1,40 @@
 +From 764e6cf1c0ffcfdbac7a259bc3ce4a7c4f221f75 Mon Sep 17 00:00:00 2001
 +From: Jonas Karlman <jonas@kwiboo.se>
 +Date: Sun, 29 Dec 2019 22:13:22 +0000
@@ -5266,37 +5267,38 @@ index 0000000..3e86597
 +--- a/arch/arm64/boot/dts/rockchip/rk3328.dtsi
 ++++ b/arch/arm64/boot/dts/rockchip/rk3328.dtsi
 +@@ -831,6 +831,8 @@
-+		clock-names = "biu", "ciu", "ciu-drive", "ciu-sample";
-+		fifo-depth = <0x100>;
-+		max-frequency = <150000000>;
++ 		clock-names = "biu", "ciu", "ciu-drive", "ciu-sample";
++ 		fifo-depth = <0x100>;
++ 		max-frequency = <150000000>;
 ++		resets = <&cru SRST_MMC0>;
 ++		reset-names = "reset";
-+		status = "disabled";
-+	};
-+
++ 		status = "disabled";
++ 	};
++ 
 +@@ -843,6 +845,8 @@
-+		clock-names = "biu", "ciu", "ciu-drive", "ciu-sample";
-+		fifo-depth = <0x100>;
-+		max-frequency = <150000000>;
++ 		clock-names = "biu", "ciu", "ciu-drive", "ciu-sample";
++ 		fifo-depth = <0x100>;
++ 		max-frequency = <150000000>;
 ++		resets = <&cru SRST_SDIO>;
 ++		reset-names = "reset";
-+		status = "disabled";
-+	};
-+
++ 		status = "disabled";
++ 	};
++ 
 +@@ -855,6 +859,8 @@
-+		clock-names = "biu", "ciu", "ciu-drive", "ciu-sample";
-+		fifo-depth = <0x100>;
-+		max-frequency = <150000000>;
++ 		clock-names = "biu", "ciu", "ciu-drive", "ciu-sample";
++ 		fifo-depth = <0x100>;
++ 		max-frequency = <150000000>;
 ++		resets = <&cru SRST_EMMC>;
 ++		reset-names = "reset";
-+		status = "disabled";
-+	};
++ 		status = "disabled";
++ 	};
++ 
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/007-add_mmc_poweroff.patch b/target/linux/rockchip-rk3328/patches-5.4/007-add_mmc_poweroff.patch
 new file mode 100644
-index 0000000..2bfb47b
+index 0000000000..ed0078c5ae
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/007-add_mmc_poweroff.patch
-@@ -0,0 +1,93 @@
+@@ -0,0 +1,94 @@
 +From 1049f9202ff060e16121c74fb712daea48979e42 Mon Sep 17 00:00:00 2001
 +From: Jonas Karlman <jonas@kwiboo.se>
 +Date: Fri, 11 Oct 2019 08:01:37 +0000
@@ -5313,23 +5315,23 @@ index 0000000..2bfb47b
 +--- a/drivers/mmc/host/dw_mmc.c
 ++++ b/drivers/mmc/host/dw_mmc.c
 +@@ -1493,6 +1493,9 @@ static void dw_mci_set_ios(struct mmc_host *mmc, struct mmc_ios *ios)
-+			regulator_disable(mmc->supply.vqmmc);
-+		slot->host->vqmmc_enabled = false;
-+
++ 			regulator_disable(mmc->supply.vqmmc);
++ 		slot->host->vqmmc_enabled = false;
++ 
 ++		if (drv_data && drv_data->power_off)
 ++			drv_data->power_off(slot->host);
 ++
-+		regs = mci_readl(slot->host, PWREN);
-+		regs &= ~(1 << slot->id);
-+		mci_writel(slot->host, PWREN, regs);
++ 		regs = mci_readl(slot->host, PWREN);
++ 		regs &= ~(1 << slot->id);
++ 		mci_writel(slot->host, PWREN, regs);
 +diff --git a/drivers/mmc/host/dw_mmc.h b/drivers/mmc/host/dw_mmc.h
 +index da5923a92e60..0b5c880364c5 100644
 +--- a/drivers/mmc/host/dw_mmc.h
 ++++ b/drivers/mmc/host/dw_mmc.h
 +@@ -563,5 +563,6 @@ struct dw_mci_drv_data {
-+						struct mmc_ios *ios);
-+	int		(*switch_voltage)(struct mmc_host *mmc,
-+					  struct mmc_ios *ios);
++ 						struct mmc_ios *ios);
++ 	int		(*switch_voltage)(struct mmc_host *mmc,
++ 					  struct mmc_ios *ios);
 ++	void		(*power_off)(struct dw_mci *host);
 + };
 + #endif /* _DW_MMC_H_ */
@@ -5350,9 +5352,9 @@ index 0000000..2bfb47b
 +--- a/drivers/mmc/host/dw_mmc-rockchip.c
 ++++ b/drivers/mmc/host/dw_mmc-rockchip.c
 +@@ -24,6 +24,32 @@ struct dw_mci_rockchip_priv_data {
-+	int			num_phases;
++ 	int			num_phases;
 + };
-+
++ 
 ++static void dw_mci_rk3288_power_off(struct dw_mci *host)
 ++{
 ++	struct mmc_host	*mmc = host->slot->mmc;
@@ -5381,21 +5383,22 @@ index 0000000..2bfb47b
 ++
 + static void dw_mci_rk3288_set_ios(struct dw_mci *host, struct mmc_ios *ios)
 + {
-+	struct dw_mci_rockchip_priv_data *priv = host->priv;
++ 	struct dw_mci_rockchip_priv_data *priv = host->priv;
 +@@ -319,6 +345,7 @@ static const struct dw_mci_drv_data rk3288_drv_data = {
-+	.execute_tuning		= dw_mci_rk3288_execute_tuning,
-+	.parse_dt		= dw_mci_rk3288_parse_dt,
-+	.init			= dw_mci_rockchip_init,
++ 	.execute_tuning		= dw_mci_rk3288_execute_tuning,
++ 	.parse_dt		= dw_mci_rk3288_parse_dt,
++ 	.init			= dw_mci_rockchip_init,
 ++	.power_off		= dw_mci_rk3288_power_off,
 + };
-+
++ 
 + static const struct of_device_id dw_mci_rockchip_match[] = {
++
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/008-mmc_rename.patch b/target/linux/rockchip-rk3328/patches-5.4/008-mmc_rename.patch
 new file mode 100644
-index 0000000..486b7fa
+index 0000000000..f1ecd8e0b4
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/008-mmc_rename.patch
-@@ -0,0 +1,55 @@
+@@ -0,0 +1,56 @@
 +From 3ef7c2558f31745588473b75a655894b37e62116 Mon Sep 17 00:00:00 2001
 +From: Johan Jonker <jbx6244@gmail.com>
 +Date: Wed, 15 Jan 2020 19:52:44 +0100
@@ -5423,37 +5426,38 @@ index 0000000..486b7fa
 +--- a/arch/arm64/boot/dts/rockchip/rk3328.dtsi
 ++++ b/arch/arm64/boot/dts/rockchip/rk3328.dtsi
 +@@ -822,7 +822,7 @@
-+		};
-+	};
-+
++ 		};
++ 	};
++ 
 +-	sdmmc: dwmmc@ff500000 {
 ++	sdmmc: mmc@ff500000 {
-+		compatible = "rockchip,rk3328-dw-mshc", "rockchip,rk3288-dw-mshc";
-+		reg = <0x0 0xff500000 0x0 0x4000>;
-+		interrupts = <GIC_SPI 12 IRQ_TYPE_LEVEL_HIGH>;
++ 		compatible = "rockchip,rk3328-dw-mshc", "rockchip,rk3288-dw-mshc";
++ 		reg = <0x0 0xff500000 0x0 0x4000>;
++ 		interrupts = <GIC_SPI 12 IRQ_TYPE_LEVEL_HIGH>;
 +@@ -836,7 +836,7 @@
-+		status = "disabled";
-+	};
-+
++ 		status = "disabled";
++ 	};
++ 
 +-	sdio: dwmmc@ff510000 {
 ++	sdio: mmc@ff510000 {
-+		compatible = "rockchip,rk3328-dw-mshc", "rockchip,rk3288-dw-mshc";
-+		reg = <0x0 0xff510000 0x0 0x4000>;
-+		interrupts = <GIC_SPI 13 IRQ_TYPE_LEVEL_HIGH>;
++ 		compatible = "rockchip,rk3328-dw-mshc", "rockchip,rk3288-dw-mshc";
++ 		reg = <0x0 0xff510000 0x0 0x4000>;
++ 		interrupts = <GIC_SPI 13 IRQ_TYPE_LEVEL_HIGH>;
 +@@ -850,7 +850,7 @@
-+		status = "disabled";
-+	};
-+
++ 		status = "disabled";
++ 	};
++ 
 +-	emmc: dwmmc@ff520000 {
 ++	emmc: mmc@ff520000 {
-+		compatible = "rockchip,rk3328-dw-mshc", "rockchip,rk3288-dw-mshc";
-+		reg = <0x0 0xff520000 0x0 0x4000>;
-+		interrupts = <GIC_SPI 14 IRQ_TYPE_LEVEL_HIGH>;
-+--
++ 		compatible = "rockchip,rk3328-dw-mshc", "rockchip,rk3288-dw-mshc";
++ 		reg = <0x0 0xff520000 0x0 0x4000>;
++ 		interrupts = <GIC_SPI 14 IRQ_TYPE_LEVEL_HIGH>;
++-- 
 +cgit 1.2-0.3.lf.el7
++
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/009-rk3328_add_sdmmc_ext_node.patch b/target/linux/rockchip-rk3328/patches-5.4/009-rk3328_add_sdmmc_ext_node.patch
 new file mode 100644
-index 0000000..d55d898
+index 0000000000..829ff9014c
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/009-rk3328_add_sdmmc_ext_node.patch
 @@ -0,0 +1,34 @@
@@ -5471,9 +5475,9 @@ index 0000000..d55d898
 +--- a/arch/arm64/boot/dts/rockchip/rk3328.dtsi
 ++++ b/arch/arm64/boot/dts/rockchip/rk3328.dtsi
 +@@ -987,6 +987,20 @@
-+		};
-+	};
-+
++ 		};
++ 	};
++ 
 ++	sdmmc_ext: mmc@ff5f0000 {
 ++		compatible = "rockchip,rk3328-dw-mshc", "rockchip,rk3288-dw-mshc";
 ++		reg = <0x0 0xff5f0000 0x0 0x4000>;
@@ -5488,12 +5492,12 @@ index 0000000..d55d898
 ++		status = "disabled";
 ++	};
 ++
-+	gic: interrupt-controller@ff811000 {
-+		compatible = "arm,gic-400";
-+		#interrupt-cells = <3>;
++ 	gic: interrupt-controller@ff811000 {
++ 		compatible = "arm,gic-400";
++ 		#interrupt-cells = <3>;
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/010-nanopi-r2s-rtl8152-leds.patch b/target/linux/rockchip-rk3328/patches-5.4/010-nanopi-r2s-rtl8152-leds.patch
 new file mode 100644
-index 0000000..3e26be5
+index 0000000000..eea0c9763d
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/010-nanopi-r2s-rtl8152-leds.patch
 @@ -0,0 +1,36 @@
@@ -5514,28 +5518,28 @@ index 0000000..3e26be5
 +@@ -37,6 +37,11 @@
 + #define DRIVER_DESC "Realtek RTL8152/RTL8153 Based USB Ethernet Adapters"
 + #define MODULENAME "r8152"
-+
++ 
 ++/* LED0: Activity, LED1: Link */
 ++static int ledsel = 0x78;
 ++module_param(ledsel, int, 0);
 ++MODULE_PARM_DESC(ledsel, "Override default LED configuration");
 ++
 + #define R8152_PHY_ID		32
-+
++ 
 + #define PLA_IDR			0xc000
 +@@ -4545,6 +4550,9 @@ static void r8153b_init(struct r8152 *tp)
-+	ocp_data &= ~(RX_AGG_DISABLE | RX_ZERO_EN);
-+	ocp_write_word(tp, MCU_TYPE_USB, USB_USB_CTRL, ocp_data);
-+
++ 	ocp_data &= ~(RX_AGG_DISABLE | RX_ZERO_EN);
++ 	ocp_write_word(tp, MCU_TYPE_USB, USB_USB_CTRL, ocp_data);
++ 
 ++	/* set customized led */
 ++	ocp_write_word(tp, MCU_TYPE_PLA, PLA_LEDSEL, ledsel);
 ++
-+	rtl_tally_reset(tp);
-+
-+	tp->coalesce = 15000;	/* 15 us */
++ 	rtl_tally_reset(tp);
++ 
++ 	tp->coalesce = 15000;	/* 15 us */
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/011-nanopi-r2s-mac-frfom-dt.patch b/target/linux/rockchip-rk3328/patches-5.4/011-nanopi-r2s-mac-frfom-dt.patch
 new file mode 100644
-index 0000000..f0b34bf
+index 0000000000..4040e88f09
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/011-nanopi-r2s-mac-frfom-dt.patch
 @@ -0,0 +1,40 @@
@@ -5562,9 +5566,9 @@ index 0000000..f0b34bf
 + #include <linux/etherdevice.h>
 + #include <linux/mii.h>
 +@@ -1298,6 +1299,17 @@ static int determine_ethernet_addr(struct r8152 *tp, struct sockaddr *sa)
-+	if (ret < 0) {
-+		netif_err(tp, probe, dev, "Get ether addr fail\n");
-+	} else if (!is_valid_ether_addr(sa->sa_data)) {
++ 	if (ret < 0) {
++ 		netif_err(tp, probe, dev, "Get ether addr fail\n");
++ 	} else if (!is_valid_ether_addr(sa->sa_data)) {
 ++		/* try to get MAC address from DT */
 ++		if (tp->udev->dev.of_node) {
 ++			const u8 *mac = of_get_mac_address(tp->udev->dev.of_node);
@@ -5576,9 +5580,9 @@ index 0000000..f0b34bf
 ++			}
 ++		}
 ++
-+		netif_err(tp, probe, dev, "Invalid ether addr %pM\n",
-+			  sa->sa_data);
-+		eth_hw_addr_random(dev);
++ 		netif_err(tp, probe, dev, "Invalid ether addr %pM\n",
++ 			  sa->sa_data);
++ 		eth_hw_addr_random(dev);
 -- 
 2.14.1.windows.1
 
