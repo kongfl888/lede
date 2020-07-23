@@ -35,11 +35,11 @@ jobs:
         rm -rf .github/workflows
         git add .
         git commit -m "Remove workflows" || echo ""
-        mkdir -p .github/workflows
-        wget -O ./.github/workflows/test.yml https://raw.githubusercontent.com/kongfl888/lede/test/.github/workflows/Merge-upstream.yml
-        sed '/push:/,+6d' .github/workflows/test.yml
-        git add .
-        git commit -m "Add test"
+        #mkdir -p .github/workflows
+        #wget -O ./.github/workflows/test.yml https://raw.githubusercontent.com/kongfl888/lede/test/.github/workflows/Merge-upstream.yml
+        #sed '/push:/,+6d' .github/workflows/test.yml
+        #git add .
+        #git commit -m "Add test"
     - name: Push Commits
       env:
         DOWNSTREAM_BRANCH: master
