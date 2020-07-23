@@ -17,7 +17,7 @@ jobs:
     steps:
 
     - name: Checkout
-      uses: actions/checkout@master
+      uses: actions/checkout@main
       with:
         ref: master
         fetch-depth: 0
@@ -29,8 +29,10 @@ jobs:
         git config --global user.name "kongfl888 K"
     - name: Git Init
       run:  |
-        git checkout master
-        git reset --hard e0c345df71ee9555f20235a6eaa35fd70b0ab3eb
+        git branch -f master e0c345df71ee9555f20235a6eaa35fd70b0ab3eb
+        rm -rf .github/workflows
+        git add .
+        git commit -m "Remove workflows"
     - name: Push Commits
       env:
         DOWNSTREAM_BRANCH: master
