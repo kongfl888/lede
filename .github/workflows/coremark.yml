@@ -1,0 +1,43 @@
+# [K] (c) 2020
+
+name: TEST
+
+on:
+  push:
+    branches:
+      - test
+    paths:
+      - '.github/workflows/coremark.yml'
+
+jobs:
+  create:
+
+    runs-on: ubuntu-latest
+    if: github.repository == 'kongfl888/lede'
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@main
+      with:
+        ref: test
+
+    - name: Set git identity
+      run : |
+        git config --global user.email "kongfl888@outlook.com"
+        git config --global user.name "kongfl888 K"
+    - name: Git Init
+      run:  |
+        git checkout test
+        cp -rf ./files /tmp
+        git remote add lean https://github.com/coolsnowwolf/lede.git
+        git fetch lean master
+        git branch -f coremark lean/master
+        git checkout coremark
+        cp -f /tmp/files/core-Makefile package/lean/coremark/Makefile
+        git add .
+        git commit -s -m "Coremark: use the general way to detect 64bit or not."
+    - name: Push Commits
+      env:
+        DOWNSTREAM_BRANCH: coremark
+      run:  |
+        git push --force origin $DOWNSTREAM_BRANCH
