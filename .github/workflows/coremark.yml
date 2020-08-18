@@ -37,7 +37,9 @@ jobs:
         git add .
         git commit -s -m "Coremark: use the general way to detect 64bit or not."
     - name: Push Commits
+      uses: ad-m/github-push-action@master
       env:
         DOWNSTREAM_BRANCH: coremark
+        GITHUB_TOKEN: ${{ secrets.sec_token }}
       run:  |
         git push --force origin $DOWNSTREAM_BRANCH
