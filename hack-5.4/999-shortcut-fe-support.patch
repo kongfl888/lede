@@ -1,9 +1,9 @@
-From 713d4fe05b4504ee2737555222b1f51f3beb0593 Mon Sep 17 00:00:00 2001
+From 5c76aa0fc5ae9d36a491336567d94824b05619ce Mon Sep 17 00:00:00 2001
 From: kongfl888 K <kongfl888@outlook.com>
 Date: Sat, 22 Aug 2020 10:45:25 +0800
 Subject: [PATCH] shortcut-fe support
 
-check for 5.4.59
+check for 5.4.60
 
 Signed-off-by: kongfl888 K <kongfl888@outlook.com>
 ---
@@ -125,7 +125,7 @@ index 4fe30b1..959661f 100644
  {
  	struct net_bridge_port *p;
 diff --git a/net/core/dev.c b/net/core/dev.c
-index 25858f1..dfcae94 100644
+index 0249dea..4b09f5f 100644
 --- a/net/core/dev.c
 +++ b/net/core/dev.c
 @@ -3188,9 +3188,17 @@ static int xmit_one(struct sk_buff *skb, struct net_device *dev,
@@ -141,13 +141,13 @@ index 25858f1..dfcae94 100644
  	if (dev_nit_active(dev))
  		dev_queue_xmit_nit(skb, dev);
 -
-++#ifdef CONFIG_SHORTCUT_FE
-++	}
-++#endif
- 	len = skb->len;
- 	trace_net_dev_start_xmit(skb, dev);
- 	rc = netdev_start_xmit(skb, dev, txq, more);
-@@ -4671,6 +4679,10 @@ void netdev_rx_handler_unregister(struct net_device *dev)
++#ifdef CONFIG_SHORTCUT_FE
++	}
++#endif
+ #ifdef CONFIG_ETHERNET_PACKET_MANGLE
+ 	if (!dev->eth_mangle_tx ||
+ 	    (skb = dev->eth_mangle_tx(dev, skb)) != NULL)
+@@ -4681,6 +4689,10 @@ void netdev_rx_handler_unregister(struct net_device *dev)
  	RCU_INIT_POINTER(dev->rx_handler_data, NULL);
  }
  EXPORT_SYMBOL_GPL(netdev_rx_handler_unregister);
@@ -158,7 +158,7 @@ index 25858f1..dfcae94 100644
  
  /*
   * Limit the use of PFMEMALLOC reserves to those protocols that implement
-@@ -4721,7 +4733,9 @@ static int __netif_receive_skb_core(struct sk_buff **pskb, bool pfmemalloc,
+@@ -4731,7 +4743,9 @@ static int __netif_receive_skb_core(struct sk_buff **pskb, bool pfmemalloc,
  	bool deliver_exact = false;
  	int ret = NET_RX_DROP;
  	__be16 type;
@@ -169,7 +169,7 @@ index 25858f1..dfcae94 100644
  	net_timestamp_check(!netdev_tstamp_prequeue, skb);
  
  	trace_netif_receive_skb(skb);
-@@ -4760,6 +4774,15 @@ another_round:
+@@ -4770,6 +4784,15 @@ another_round:
  		if (unlikely(!skb))
  			goto out;
  	}

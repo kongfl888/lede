@@ -5,7 +5,7 @@ Subject: [PATCH] add ndo do ioctl
 
 Old driver API : call driver ioctl handler
 
-check for 5.4.59
+check for 5.4.60
 
 
 Signed-off-by: kongfl888 K <kongfl888@outlook.com>
