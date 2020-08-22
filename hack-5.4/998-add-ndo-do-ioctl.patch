@@ -1,4 +1,4 @@
-From 2fd885661a6b98095e5d8a3b2f4efe24148c6147 Mon Sep 17 00:00:00 2001
+From 8d8420bd647b87bf154efd27231ed19654c398ae Mon Sep 17 00:00:00 2001
 From: kongfl888 K <kongfl888@outlook.com>
 Date: Sat, 22 Aug 2020 10:30:42 +0800
 Subject: [PATCH] add ndo do ioctl
@@ -6,7 +6,6 @@ Subject: [PATCH] add ndo do ioctl
 Old driver API : call driver ioctl handler
 
 check for 5.4.60
-
 
 Signed-off-by: kongfl888 K <kongfl888@outlook.com>
 ---

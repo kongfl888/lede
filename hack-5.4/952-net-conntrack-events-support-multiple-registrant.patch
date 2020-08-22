@@ -1,4 +1,4 @@
-From 656a7110674111ec4be4766611f853029a2fc2ca Mon Sep 17 00:00:00 2001
+From eb96e1b92aed76346e415a90422c724165e1be62 Mon Sep 17 00:00:00 2001
 From: kongfl888 K <kongfl888@outlook.com>
 Date: Sat, 22 Aug 2020 10:27:21 +0800
 Subject: [PATCH] net conntrack events support multiple registrant.
@@ -20,7 +20,7 @@ Signed-off-by: kongfl888 K <kongfl888@outlook.com>
  6 files changed, 140 insertions(+), 3 deletions(-)
 
 diff --git a/include/net/netfilter/nf_conntrack_ecache.h b/include/net/netfilter/nf_conntrack_ecache.h
-index eb81f91..fada27b 100644
+index eb81f91..7de22ec 100644
 --- a/include/net/netfilter/nf_conntrack_ecache.h
 +++ b/include/net/netfilter/nf_conntrack_ecache.h
 @@ -72,6 +72,10 @@ struct nf_ct_event {
@@ -82,7 +82,7 @@ index eb81f91..fada27b 100644
  
  	if (!rcu_access_pointer(net->ct.nf_conntrack_event_cb))
  		return 0;
-++#endif
++#endif
  
  	return nf_conntrack_eventmask_report(1 << event, ct, 0, 0);
  #else
