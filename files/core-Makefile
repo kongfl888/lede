@@ -35,13 +35,7 @@ define Package/coremark/description
   Embedded Microprocessor Benchmark
 endef
 
-DIR_ARCH:=linux
-
-ifeq ($(CONFIG_ARCH_64BIT),y)
-	DIR_ARCH:=linux64
-else ifeq ($(CONFIG_64BIT),y)
-	DIR_ARCH:=linux64
-endif
+DIR_ARCH:=linux$(if $(CONFIG_ARCH_64BIT),64)
 
 define Build/Compile
 	$(SED) 's|EXE = .exe|EXE =|' $(PKG_BUILD_DIR)/$(DIR_ARCH)/core_portme.mak
