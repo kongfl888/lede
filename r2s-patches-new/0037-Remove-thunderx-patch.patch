@@ -1,7 +1,7 @@
-From d2df3741b18b2f543041673b58130f5f4ee322fc Mon Sep 17 00:00:00 2001
-From: kongfl888 <kongfl888@outlook.com>
-Date: Tue, 7 Jul 2020 05:27:31 +0800
-Subject: [PATCH 36/39] Remove thunderx patch.
+From 5dd4d07bbe95bb04810d5a4937f413c596fff83c Mon Sep 17 00:00:00 2001
+From: kongfl888 K <kongfl888@outlook.com>
+Date: Sun, 27 Sep 2020 00:25:23 +0800
+Subject: [PATCH 37/42] Remove thunderx patch.
 
 ---
  ...x-add-support-for-rgmii-internal-delay-mo.patch | 139 ---------------------
@@ -12,7 +12,7 @@ Subject: [PATCH 36/39] Remove thunderx patch.
 
 diff --git a/target/linux/rockchip-rk3328/patches-4.14/0001-net-thunderx-add-support-for-rgmii-internal-delay-mo.patch b/target/linux/rockchip-rk3328/patches-4.14/0001-net-thunderx-add-support-for-rgmii-internal-delay-mo.patch
 deleted file mode 100644
-index efb58f8..0000000
+index efb58f872..000000000
 --- a/target/linux/rockchip-rk3328/patches-4.14/0001-net-thunderx-add-support-for-rgmii-internal-delay-mo.patch
 +++ /dev/null
 @@ -1,139 +0,0 @@
@@ -157,7 +157,7 @@ index efb58f8..0000000
 -	/* Enable compensation controller and force the
 diff --git a/target/linux/rockchip-rk3328/patches-4.14/0001-net-thunderx-workaround-BGX-TX-Underflow-issue.patch b/target/linux/rockchip-rk3328/patches-4.14/0001-net-thunderx-workaround-BGX-TX-Underflow-issue.patch
 deleted file mode 100644
-index a3d21fd..0000000
+index a3d21fd8f..000000000
 --- a/target/linux/rockchip-rk3328/patches-4.14/0001-net-thunderx-workaround-BGX-TX-Underflow-issue.patch
 +++ /dev/null
 @@ -1,110 +0,0 @@

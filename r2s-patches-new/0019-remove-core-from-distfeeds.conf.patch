@@ -1,14 +1,14 @@
-From 6cd243db1d65389e74085c2c26c0ccb928b26e36 Mon Sep 17 00:00:00 2001
+From 988edcc942aafc71319c8f40eb3ef7ab19594245 Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Tue, 25 Feb 2020 02:25:37 +0800
-Subject: [PATCH 19/39] remove core from distfeeds.conf
+Subject: [PATCH 19/42] remove core from distfeeds.conf
 
 ---
  include/feeds.mk | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/include/feeds.mk b/include/feeds.mk
-index 9637424..310b003 100644
+index 9637424c5..310b0038c 100644
 --- a/include/feeds.mk
 +++ b/include/feeds.mk
 @@ -33,7 +33,7 @@ endef

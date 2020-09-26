@@ -1,7 +1,7 @@
-From 2e2526ce3f3f13a03b921bf29f8eb9958efd8bdc Mon Sep 17 00:00:00 2001
+From fa37cdcf9282a322a4a2d7c70daf402e4ebe5755 Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Thu, 28 May 2020 17:39:15 +0800
-Subject: [PATCH 35/39] add support for new model: nanopi-neo3
+Subject: [PATCH 35/42] add support for new model: nanopi-neo3
 
 ---
  target/linux/rockchip-rk3328/base-files/etc/board.d/02_network |  3 +++
@@ -9,7 +9,7 @@ Subject: [PATCH 35/39] add support for new model: nanopi-neo3
  2 files changed, 12 insertions(+), 1 deletion(-)
 
 diff --git a/target/linux/rockchip-rk3328/base-files/etc/board.d/02_network b/target/linux/rockchip-rk3328/base-files/etc/board.d/02_network
-index c9d9478..dada864 100755
+index c9d9478c8..dada864f4 100755
 --- a/target/linux/rockchip-rk3328/base-files/etc/board.d/02_network
 +++ b/target/linux/rockchip-rk3328/base-files/etc/board.d/02_network
 @@ -12,6 +12,9 @@ case "$(board_name)" in
@@ -23,7 +23,7 @@ index c9d9478..dada864 100755
  	ucidef_set_interface_wan 'eth0'
  	;;
 diff --git a/target/linux/rockchip-rk3328/base-files/etc/hotplug.d/iface/12-disable-rk3328-eth-offloading b/target/linux/rockchip-rk3328/base-files/etc/hotplug.d/iface/12-disable-rk3328-eth-offloading
-index 5eb25c6..8352084 100644
+index 5eb25c653..835208489 100644
 --- a/target/linux/rockchip-rk3328/base-files/etc/hotplug.d/iface/12-disable-rk3328-eth-offloading
 +++ b/target/linux/rockchip-rk3328/base-files/etc/hotplug.d/iface/12-disable-rk3328-eth-offloading
 @@ -9,7 +9,15 @@

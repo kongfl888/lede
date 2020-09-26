@@ -1,7 +1,7 @@
-From f2bf2993f8c57217c18f5414b79ab1ad2969a857 Mon Sep 17 00:00:00 2001
+From 56481d223de40c31f0733bf1c0073bbb9d979b69 Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Sat, 22 Feb 2020 14:10:37 +0800
-Subject: [PATCH 15/39] rk3328: optimized network performance, adjusted CPU to
+Subject: [PATCH 15/42] rk3328: optimized network performance, adjusted CPU to
  performance priority
 
 ---
@@ -13,7 +13,7 @@ Subject: [PATCH 15/39] rk3328: optimized network performance, adjusted CPU to
 
 diff --git a/target/linux/rockchip-rk3328/base-files/etc/init.d/fa-rk3328-misc b/target/linux/rockchip-rk3328/base-files/etc/init.d/fa-rk3328-misc
 new file mode 100755
-index 0000000..3ce3292
+index 000000000..3ce329248
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/base-files/etc/init.d/fa-rk3328-misc
 @@ -0,0 +1,8 @@
@@ -27,7 +27,7 @@ index 0000000..3ce3292
 +}
 diff --git a/target/linux/rockchip-rk3328/base-files/etc/rc.d/S96fa-rk3328-misc b/target/linux/rockchip-rk3328/base-files/etc/rc.d/S96fa-rk3328-misc
 new file mode 120000
-index 0000000..dbf8b57
+index 000000000..dbf8b5733
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/base-files/etc/rc.d/S96fa-rk3328-misc
 @@ -0,0 +1 @@

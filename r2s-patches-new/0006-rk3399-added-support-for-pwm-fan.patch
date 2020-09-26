@@ -1,7 +1,7 @@
-From 5892df2757d5f9195b29229ab796861ea77f9a76 Mon Sep 17 00:00:00 2001
+From 60d6b33fda141bbf4ac11ebb1d339fe07034b3a4 Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Fri, 13 Dec 2019 17:53:13 +0800
-Subject: [PATCH 06/39] rk3399: added support for pwm fan
+Subject: [PATCH 06/42] rk3399: added support for pwm fan
 
 ---
  .../base-files/etc/init.d/fa-rk3399-pwmfan         |  8 +++
@@ -14,7 +14,7 @@ Subject: [PATCH 06/39] rk3399: added support for pwm fan
 
 diff --git a/target/linux/rockchip-rk3399/base-files/etc/init.d/fa-rk3399-pwmfan b/target/linux/rockchip-rk3399/base-files/etc/init.d/fa-rk3399-pwmfan
 new file mode 100755
-index 0000000..2146f1c
+index 000000000..2146f1c8f
 --- /dev/null
 +++ b/target/linux/rockchip-rk3399/base-files/etc/init.d/fa-rk3399-pwmfan
 @@ -0,0 +1,8 @@
@@ -28,7 +28,7 @@ index 0000000..2146f1c
 +}
 diff --git a/target/linux/rockchip-rk3399/base-files/etc/rc.d/S96fa-rk3399-pwmfan b/target/linux/rockchip-rk3399/base-files/etc/rc.d/S96fa-rk3399-pwmfan
 new file mode 120000
-index 0000000..bf64762
+index 000000000..bf6476254
 --- /dev/null
 +++ b/target/linux/rockchip-rk3399/base-files/etc/rc.d/S96fa-rk3399-pwmfan
 @@ -0,0 +1 @@
@@ -36,7 +36,7 @@ index 0000000..bf64762
 \ No newline at end of file
 diff --git a/target/linux/rockchip-rk3399/base-files/usr/bin/start-rk3399-pwm-fan.sh b/target/linux/rockchip-rk3399/base-files/usr/bin/start-rk3399-pwm-fan.sh
 new file mode 100755
-index 0000000..b250c3d
+index 000000000..b250c3d78
 --- /dev/null
 +++ b/target/linux/rockchip-rk3399/base-files/usr/bin/start-rk3399-pwm-fan.sh
 @@ -0,0 +1,59 @@

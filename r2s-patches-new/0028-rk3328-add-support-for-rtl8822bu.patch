@@ -1,7 +1,7 @@
-From 73dc709f7fc544d03250f8387e7a2dea5cf6f2fc Mon Sep 17 00:00:00 2001
+From 928d80e882d2d765ad82b2e43526cf52928c4682 Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Tue, 14 Apr 2020 13:30:50 +0800
-Subject: [PATCH 28/39] rk3328: add support for rtl8822bu
+Subject: [PATCH 28/42] rk3328: add support for rtl8822bu
 
 ---
  .../base-files/files/etc/hotplug.d/usb/31-usb_wifi | 22 ++++++++++++++++++----
@@ -10,7 +10,7 @@ Subject: [PATCH 28/39] rk3328: add support for rtl8822bu
  create mode 100755 target/linux/rockchip-rk3328/base-files/etc/modules.d/10-rtl8822bu
 
 diff --git a/package/base-files/files/etc/hotplug.d/usb/31-usb_wifi b/package/base-files/files/etc/hotplug.d/usb/31-usb_wifi
-index 54a65c4..9bbd31d 100644
+index 54a65c4d0..9bbd31dec 100644
 --- a/package/base-files/files/etc/hotplug.d/usb/31-usb_wifi
 +++ b/package/base-files/files/etc/hotplug.d/usb/31-usb_wifi
 @@ -1,10 +1,18 @@
@@ -54,7 +54,7 @@ index 54a65c4..9bbd31d 100644
  EOF
 diff --git a/target/linux/rockchip-rk3328/base-files/etc/modules.d/10-rtl8822bu b/target/linux/rockchip-rk3328/base-files/etc/modules.d/10-rtl8822bu
 new file mode 100755
-index 0000000..f7ffc0d
+index 000000000..f7ffc0d53
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/base-files/etc/modules.d/10-rtl8822bu
 @@ -0,0 +1 @@

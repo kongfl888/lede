@@ -1,7 +1,7 @@
-From 0170365dc9dab3b84c0af322dcdd9d55d183d24c Mon Sep 17 00:00:00 2001
+From 02ee368a0848f1eaefc314f010b2b5cb523dc7e7 Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Thu, 12 Dec 2019 13:09:27 +0800
-Subject: [PATCH 04/39] fix wifi ap issue via service
+Subject: [PATCH 04/42] fix wifi ap issue via service
 
 ---
  package/base-files/files/etc/init.d/fa-wifiap   | 13 ++++++++
@@ -14,7 +14,7 @@ Subject: [PATCH 04/39] fix wifi ap issue via service
 
 diff --git a/package/base-files/files/etc/init.d/fa-wifiap b/package/base-files/files/etc/init.d/fa-wifiap
 new file mode 100755
-index 0000000..0f7598f
+index 000000000..0f7598f0c
 --- /dev/null
 +++ b/package/base-files/files/etc/init.d/fa-wifiap
 @@ -0,0 +1,13 @@
@@ -33,7 +33,7 @@ index 0000000..0f7598f
 +}
 diff --git a/package/base-files/files/etc/rc.d/S11fa-wifiap b/package/base-files/files/etc/rc.d/S11fa-wifiap
 new file mode 120000
-index 0000000..de59c87
+index 000000000..de59c8799
 --- /dev/null
 +++ b/package/base-files/files/etc/rc.d/S11fa-wifiap
 @@ -0,0 +1 @@
@@ -41,7 +41,7 @@ index 0000000..de59c87
 \ No newline at end of file
 diff --git a/package/base-files/files/usr/bin/fix_wifi_ap.sh b/package/base-files/files/usr/bin/fix_wifi_ap.sh
 new file mode 100755
-index 0000000..751e011
+index 000000000..751e011f5
 --- /dev/null
 +++ b/package/base-files/files/usr/bin/fix_wifi_ap.sh
 @@ -0,0 +1,42 @@

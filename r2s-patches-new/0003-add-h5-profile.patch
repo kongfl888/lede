@@ -1,7 +1,7 @@
-From cd7c0e1e95198d668a69d869875cd60976979d33 Mon Sep 17 00:00:00 2001
+From e18d95535e6aa55149a247462f42145c6738f281 Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Thu, 12 Dec 2019 08:31:20 +0800
-Subject: [PATCH 03/39] add h5 profile
+Subject: [PATCH 03/42] add h5 profile
 
 ---
  target/linux/allwinner-h5/Makefile                 |  26 +
@@ -42,7 +42,7 @@ Subject: [PATCH 03/39] add h5 profile
 
 diff --git a/target/linux/allwinner-h5/Makefile b/target/linux/allwinner-h5/Makefile
 new file mode 100644
-index 0000000..77b6918
+index 000000000..77b691832
 --- /dev/null
 +++ b/target/linux/allwinner-h5/Makefile
 @@ -0,0 +1,26 @@
@@ -74,7 +74,7 @@ index 0000000..77b6918
 +$(eval $(call BuildTarget))
 diff --git a/target/linux/allwinner-h5/base-files/etc/board.d/01_leds b/target/linux/allwinner-h5/base-files/etc/board.d/01_leds
 new file mode 100755
-index 0000000..8b58ef0
+index 000000000..8b58ef090
 --- /dev/null
 +++ b/target/linux/allwinner-h5/base-files/etc/board.d/01_leds
 @@ -0,0 +1,20 @@
@@ -100,7 +100,7 @@ index 0000000..8b58ef0
 +exit 0
 diff --git a/target/linux/allwinner-h5/base-files/etc/board.d/02_network b/target/linux/allwinner-h5/base-files/etc/board.d/02_network
 new file mode 100755
-index 0000000..67a93b9
+index 000000000..67a93b93a
 --- /dev/null
 +++ b/target/linux/allwinner-h5/base-files/etc/board.d/02_network
 @@ -0,0 +1,55 @@
@@ -161,7 +161,7 @@ index 0000000..67a93b9
 +exit 0
 diff --git a/target/linux/allwinner-h5/base-files/etc/inittab b/target/linux/allwinner-h5/base-files/etc/inittab
 new file mode 100644
-index 0000000..be81ab3
+index 000000000..be81ab3e2
 --- /dev/null
 +++ b/target/linux/allwinner-h5/base-files/etc/inittab
 @@ -0,0 +1,5 @@
@@ -172,7 +172,7 @@ index 0000000..be81ab3
 +tty1::askfirst:/usr/libexec/login.sh
 diff --git a/target/linux/allwinner-h5/base-files/lib/firmware/brcm/brcmfmac4329-sdio.txt b/target/linux/allwinner-h5/base-files/lib/firmware/brcm/brcmfmac4329-sdio.txt
 new file mode 100644
-index 0000000..b88f7ce
+index 000000000..b88f7ced4
 --- /dev/null
 +++ b/target/linux/allwinner-h5/base-files/lib/firmware/brcm/brcmfmac4329-sdio.txt
 @@ -0,0 +1,56 @@
@@ -234,7 +234,7 @@ index 0000000..b88f7ce
 +btc_params6=63
 diff --git a/target/linux/allwinner-h5/base-files/lib/firmware/brcm/brcmfmac43362-sdio.txt b/target/linux/allwinner-h5/base-files/lib/firmware/brcm/brcmfmac43362-sdio.txt
 new file mode 100644
-index 0000000..901e782
+index 000000000..901e7825b
 --- /dev/null
 +++ b/target/linux/allwinner-h5/base-files/lib/firmware/brcm/brcmfmac43362-sdio.txt
 @@ -0,0 +1,51 @@
@@ -291,7 +291,7 @@ index 0000000..901e782
 +temp_mult=425
 diff --git a/target/linux/allwinner-h5/base-files/lib/firmware/brcm/brcmfmac43430-sdio.txt b/target/linux/allwinner-h5/base-files/lib/firmware/brcm/brcmfmac43430-sdio.txt
 new file mode 100644
-index 0000000..9baa5c3
+index 000000000..9baa5c33b
 --- /dev/null
 +++ b/target/linux/allwinner-h5/base-files/lib/firmware/brcm/brcmfmac43430-sdio.txt
 @@ -0,0 +1,53 @@
@@ -350,7 +350,7 @@ index 0000000..9baa5c3
 +#cldo_pwm=0x4
 diff --git a/target/linux/allwinner-h5/base-files/lib/firmware/brcm/brcmfmac43430a0-sdio.txt b/target/linux/allwinner-h5/base-files/lib/firmware/brcm/brcmfmac43430a0-sdio.txt
 new file mode 120000
-index 0000000..2ed6689
+index 000000000..2ed668982
 --- /dev/null
 +++ b/target/linux/allwinner-h5/base-files/lib/firmware/brcm/brcmfmac43430a0-sdio.txt
 @@ -0,0 +1 @@
@@ -358,7 +358,7 @@ index 0000000..2ed6689
 \ No newline at end of file
 diff --git a/target/linux/allwinner-h5/base-files/lib/preinit/03_b53_hack.sh b/target/linux/allwinner-h5/base-files/lib/preinit/03_b53_hack.sh
 new file mode 100644
-index 0000000..170cfd5
+index 000000000..170cfd5b2
 --- /dev/null
 +++ b/target/linux/allwinner-h5/base-files/lib/preinit/03_b53_hack.sh
 @@ -0,0 +1,18 @@
@@ -382,7 +382,7 @@ index 0000000..170cfd5
 +boot_hook_add preinit_main do_b53_hack
 diff --git a/target/linux/allwinner-h5/base-files/lib/preinit/79_move_config b/target/linux/allwinner-h5/base-files/lib/preinit/79_move_config
 new file mode 100644
-index 0000000..a4f5bb2
+index 000000000..a4f5bb205
 --- /dev/null
 +++ b/target/linux/allwinner-h5/base-files/lib/preinit/79_move_config
 @@ -0,0 +1,19 @@
@@ -407,7 +407,7 @@ index 0000000..a4f5bb2
 +boot_hook_add preinit_mount_root move_config
 diff --git a/target/linux/allwinner-h5/base-files/lib/upgrade/platform.sh b/target/linux/allwinner-h5/base-files/lib/upgrade/platform.sh
 new file mode 100644
-index 0000000..10412c5
+index 000000000..10412c517
 --- /dev/null
 +++ b/target/linux/allwinner-h5/base-files/lib/upgrade/platform.sh
 @@ -0,0 +1,88 @@
@@ -501,7 +501,7 @@ index 0000000..10412c5
 +}
 diff --git a/target/linux/allwinner-h5/base-files/usr/bin/cpu_freq b/target/linux/allwinner-h5/base-files/usr/bin/cpu_freq
 new file mode 100755
-index 0000000..5f0be25
+index 000000000..5f0be25a1
 --- /dev/null
 +++ b/target/linux/allwinner-h5/base-files/usr/bin/cpu_freq
 @@ -0,0 +1,120 @@
@@ -628,7 +628,7 @@ index 0000000..5f0be25
 \ No newline at end of file
 diff --git a/target/linux/allwinner-h5/config-4.14 b/target/linux/allwinner-h5/config-4.14
 new file mode 100644
-index 0000000..fd627d6
+index 000000000..fd627d6a2
 --- /dev/null
 +++ b/target/linux/allwinner-h5/config-4.14
 @@ -0,0 +1,546 @@
@@ -1180,7 +1180,7 @@ index 0000000..fd627d6
 +CONFIG_XPS=y
 diff --git a/target/linux/allwinner-h5/image/Makefile b/target/linux/allwinner-h5/image/Makefile
 new file mode 100644
-index 0000000..203f0ea
+index 000000000..203f0ea5c
 --- /dev/null
 +++ b/target/linux/allwinner-h5/image/Makefile
 @@ -0,0 +1,21 @@
@@ -1207,7 +1207,7 @@ index 0000000..203f0ea
 +$(eval $(call BuildImage))
 diff --git a/target/linux/allwinner-h5/patches-4.14/0001-net-thunderx-add-support-for-rgmii-internal-delay-mo.patch b/target/linux/allwinner-h5/patches-4.14/0001-net-thunderx-add-support-for-rgmii-internal-delay-mo.patch
 new file mode 100644
-index 0000000..efb58f8
+index 000000000..efb58f872
 --- /dev/null
 +++ b/target/linux/allwinner-h5/patches-4.14/0001-net-thunderx-add-support-for-rgmii-internal-delay-mo.patch
 @@ -0,0 +1,139 @@
@@ -1352,7 +1352,7 @@ index 0000000..efb58f8
 +	/* Enable compensation controller and force the
 diff --git a/target/linux/allwinner-h5/patches-4.14/0001-net-thunderx-workaround-BGX-TX-Underflow-issue.patch b/target/linux/allwinner-h5/patches-4.14/0001-net-thunderx-workaround-BGX-TX-Underflow-issue.patch
 new file mode 100644
-index 0000000..a3d21fd
+index 000000000..a3d21fd8f
 --- /dev/null
 +++ b/target/linux/allwinner-h5/patches-4.14/0001-net-thunderx-workaround-BGX-TX-Underflow-issue.patch
 @@ -0,0 +1,110 @@
@@ -1468,7 +1468,7 @@ index 0000000..a3d21fd
 + #define BGX_MSIX_VEC_0_29_CTL		0x400008
 diff --git a/target/linux/allwinner-h5/profiles/00-default.mk b/target/linux/allwinner-h5/profiles/00-default.mk
 new file mode 100644
-index 0000000..5f98572
+index 000000000..5f985721b
 --- /dev/null
 +++ b/target/linux/allwinner-h5/profiles/00-default.mk
 @@ -0,0 +1,17 @@

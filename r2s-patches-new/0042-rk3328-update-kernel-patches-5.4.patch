@@ -1,7 +1,7 @@
-From 8ea398ebf5ae07d6745b903be7109879667e4af8 Mon Sep 17 00:00:00 2001
+From 1bca5c916500872719c505ff4f08389d3494f312 Mon Sep 17 00:00:00 2001
 From: kongfl888 K <kongfl888@outlook.com>
 Date: Wed, 9 Sep 2020 21:05:24 +0800
-Subject: [PATCH] rk3328:update kernel patches-5.4
+Subject: [PATCH 42/42] rk3328:update kernel patches-5.4
 
 Signed-off-by: kongfl888 K <kongfl888@outlook.com>
 ---
@@ -55,7 +55,7 @@ Signed-off-by: kongfl888 K <kongfl888@outlook.com>
 
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/001-add-rk3328-dmc-driver.patch b/target/linux/rockchip-rk3328/patches-5.4/001-add-rk3328-dmc-driver.patch
 deleted file mode 100644
-index 761429289f..0000000000
+index 761429289..000000000
 --- a/target/linux/rockchip-rk3328/patches-5.4/001-add-rk3328-dmc-driver.patch
 +++ /dev/null
 @@ -1,1796 +0,0 @@
@@ -1857,7 +1857,7 @@ index 761429289f..0000000000
 - 	}
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/001-rk3328_fix_wrong_mmc_shift.patch b/target/linux/rockchip-rk3328/patches-5.4/001-rk3328_fix_wrong_mmc_shift.patch
 deleted file mode 100644
-index de7a866710..0000000000
+index de7a86671..000000000
 --- a/target/linux/rockchip-rk3328/patches-5.4/001-rk3328_fix_wrong_mmc_shift.patch
 +++ /dev/null
 @@ -1,48 +0,0 @@
@@ -1913,7 +1913,7 @@ diff --git a/target/linux/rockchip-rk3328/patches-5.4/003-add-rk3328-rock-pi-e-s
 similarity index 56%
 rename from target/linux/rockchip-rk3328/patches-5.4/003-add-rk3328-rock-pi-e-support.patch
 rename to target/linux/rockchip-rk3328/patches-5.4/001-rockchip-rk3328-Add-support-for-FriendlyARM-NanoPi-R.patch
-index d4e24be558..904a2f31b6 100644
+index d4e24be55..904a2f31b 100644
 --- a/target/linux/rockchip-rk3328/patches-5.4/003-add-rk3328-rock-pi-e-support.patch
 +++ b/target/linux/rockchip-rk3328/patches-5.4/001-rockchip-rk3328-Add-support-for-FriendlyARM-NanoPi-R.patch
 @@ -1,47 +1,58 @@
@@ -2452,7 +2452,7 @@ index d4e24be558..904a2f31b6 100644
 -+};
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/002-add-rk3328-usb3-driver.patch b/target/linux/rockchip-rk3328/patches-5.4/002-add-rk3328-usb3-driver.patch
 deleted file mode 100644
-index 6a15af240f..0000000000
+index 6a15af240..000000000
 --- a/target/linux/rockchip-rk3328/patches-5.4/002-add-rk3328-usb3-driver.patch
 +++ /dev/null
 @@ -1,1424 +0,0 @@
@@ -3882,7 +3882,7 @@ index 6a15af240f..0000000000
 - 		#interrupt-cells = <3>;
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/002-net-usb-r8152-add-LED-configuration-from-OF.patch b/target/linux/rockchip-rk3328/patches-5.4/002-net-usb-r8152-add-LED-configuration-from-OF.patch
 new file mode 100644
-index 0000000000..53b6413cf3
+index 000000000..53b6413cf
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/002-net-usb-r8152-add-LED-configuration-from-OF.patch
 @@ -0,0 +1,74 @@
@@ -3962,7 +3962,7 @@ index 0000000000..53b6413cf3
 + static int rtl8152_pre_reset(struct usb_interface *intf)
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/003-add-nanopi-r2s-support.patch b/target/linux/rockchip-rk3328/patches-5.4/003-add-nanopi-r2s-support.patch
 deleted file mode 100644
-index 3463df5c2e..0000000000
+index 3463df5c2..000000000
 --- a/target/linux/rockchip-rk3328/patches-5.4/003-add-nanopi-r2s-support.patch
 +++ /dev/null
 @@ -1,780 +0,0 @@
@@ -4748,7 +4748,7 @@ index 3463df5c2e..0000000000
 -+};
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/003-dt-bindings-net-add-RTL8152-binding-documentation.patch b/target/linux/rockchip-rk3328/patches-5.4/003-dt-bindings-net-add-RTL8152-binding-documentation.patch
 new file mode 100644
-index 0000000000..be262b993c
+index 000000000..be262b993
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/003-dt-bindings-net-add-RTL8152-binding-documentation.patch
 @@ -0,0 +1,54 @@
@@ -4808,7 +4808,7 @@ index 0000000000..be262b993c
 +\ No newline at end of file
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/003-nanopi-r2s-kernel-patches.patch b/target/linux/rockchip-rk3328/patches-5.4/003-nanopi-r2s-kernel-patches.patch
 deleted file mode 100644
-index f98717ecf2..0000000000
+index f98717ecf..000000000
 --- a/target/linux/rockchip-rk3328/patches-5.4/003-nanopi-r2s-kernel-patches.patch
 +++ /dev/null
 @@ -1,551 +0,0 @@
@@ -5365,7 +5365,7 @@ index f98717ecf2..0000000000
 -+#endif /*_DT_BINDINGS_DRAM_ROCKCHIP_RK3328_H*/
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/004-arm64-dts-rockchip-Add-txpbl-node-for-RK3399-RK3328.patch b/target/linux/rockchip-rk3328/patches-5.4/004-arm64-dts-rockchip-Add-txpbl-node-for-RK3399-RK3328.patch
 new file mode 100644
-index 0000000000..8931d5c5a9
+index 000000000..8931d5c5a
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/004-arm64-dts-rockchip-Add-txpbl-node-for-RK3399-RK3328.patch
 @@ -0,0 +1,54 @@
@@ -5425,7 +5425,7 @@ index 0000000000..8931d5c5a9
 + 
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/004-unlock-1512mhz-rk3328.patch b/target/linux/rockchip-rk3328/patches-5.4/004-unlock-1512mhz-rk3328.patch
 deleted file mode 100644
-index 7d67233d62..0000000000
+index 7d67233d6..000000000
 --- a/target/linux/rockchip-rk3328/patches-5.4/004-unlock-1512mhz-rk3328.patch
 +++ /dev/null
 @@ -1,16 +0,0 @@
@@ -5447,7 +5447,7 @@ index 7d67233d62..0000000000
 - 	amba {
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/006-rk3328_add_mmc_reset.patch b/target/linux/rockchip-rk3328/patches-5.4/006-rk3328_add_mmc_reset.patch
 deleted file mode 100644
-index c66fbfbbaf..0000000000
+index c66fbfbba..000000000
 --- a/target/linux/rockchip-rk3328/patches-5.4/006-rk3328_add_mmc_reset.patch
 +++ /dev/null
 @@ -1,40 +0,0 @@
@@ -5493,7 +5493,7 @@ index c66fbfbbaf..0000000000
 - 
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/007-add_mmc_poweroff.patch b/target/linux/rockchip-rk3328/patches-5.4/007-add_mmc_poweroff.patch
 deleted file mode 100644
-index ed0078c5ae..0000000000
+index ed0078c5a..000000000
 --- a/target/linux/rockchip-rk3328/patches-5.4/007-add_mmc_poweroff.patch
 +++ /dev/null
 @@ -1,94 +0,0 @@
@@ -5593,7 +5593,7 @@ index ed0078c5ae..0000000000
 -
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/008-mmc_rename.patch b/target/linux/rockchip-rk3328/patches-5.4/008-mmc_rename.patch
 deleted file mode 100644
-index f1ecd8e0b4..0000000000
+index f1ecd8e0b..000000000
 --- a/target/linux/rockchip-rk3328/patches-5.4/008-mmc_rename.patch
 +++ /dev/null
 @@ -1,56 +0,0 @@
@@ -5655,7 +5655,7 @@ index f1ecd8e0b4..0000000000
 -
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/009-rk3328_add_sdmmc_ext_node.patch b/target/linux/rockchip-rk3328/patches-5.4/009-rk3328_add_sdmmc_ext_node.patch
 deleted file mode 100644
-index 829ff9014c..0000000000
+index 829ff9014..000000000
 --- a/target/linux/rockchip-rk3328/patches-5.4/009-rk3328_add_sdmmc_ext_node.patch
 +++ /dev/null
 @@ -1,34 +0,0 @@
@@ -5695,7 +5695,7 @@ index 829ff9014c..0000000000
 - 		#interrupt-cells = <3>;
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/010-nanopi-r2s-rtl8152-leds.patch b/target/linux/rockchip-rk3328/patches-5.4/010-nanopi-r2s-rtl8152-leds.patch
 deleted file mode 100644
-index eea0c9763d..0000000000
+index eea0c9763..000000000
 --- a/target/linux/rockchip-rk3328/patches-5.4/010-nanopi-r2s-rtl8152-leds.patch
 +++ /dev/null
 @@ -1,36 +0,0 @@
@@ -5737,7 +5737,7 @@ index eea0c9763d..0000000000
 - 	tp->coalesce = 15000;	/* 15 us */
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/011-nanopi-r2s-mac-frfom-dt.patch b/target/linux/rockchip-rk3328/patches-5.4/011-nanopi-r2s-mac-frfom-dt.patch
 deleted file mode 100644
-index 4040e88f09..0000000000
+index 4040e88f0..000000000
 --- a/target/linux/rockchip-rk3328/patches-5.4/011-nanopi-r2s-mac-frfom-dt.patch
 +++ /dev/null
 @@ -1,40 +0,0 @@
@@ -5783,7 +5783,7 @@ index 4040e88f09..0000000000
 - 		eth_hw_addr_random(dev);
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/100-rockchip-use-system-LED-for-OpenWrt.patch b/target/linux/rockchip-rk3328/patches-5.4/100-rockchip-use-system-LED-for-OpenWrt.patch
 new file mode 100644
-index 0000000000..1250dbcd9b
+index 000000000..1250dbcd9
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/100-rockchip-use-system-LED-for-OpenWrt.patch
 @@ -0,0 +1,40 @@
@@ -5829,7 +5829,7 @@ index 0000000000..1250dbcd9b
 + 		};
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/101-dts-rockchip-add-usb3-controller-node-for-RK3328-SoCs.patch b/target/linux/rockchip-rk3328/patches-5.4/101-dts-rockchip-add-usb3-controller-node-for-RK3328-SoCs.patch
 new file mode 100644
-index 0000000000..2635c7a676
+index 000000000..2635c7a67
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/101-dts-rockchip-add-usb3-controller-node-for-RK3328-SoCs.patch
 @@ -0,0 +1,62 @@
@@ -5897,7 +5897,7 @@ index 0000000000..2635c7a676
 + 		#interrupt-cells = <3>;
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/102-rockchip-enable-LAN-port-on-NanoPi-R2S.patch b/target/linux/rockchip-rk3328/patches-5.4/102-rockchip-enable-LAN-port-on-NanoPi-R2S.patch
 new file mode 100644
-index 0000000000..e2aa2d67e6
+index 000000000..e2aa2d67e
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/102-rockchip-enable-LAN-port-on-NanoPi-R2S.patch
 @@ -0,0 +1,60 @@
@@ -5963,7 +5963,7 @@ index 0000000000..e2aa2d67e6
 ++};
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/103-arm64-rockchip-add-OF-node-for-USB-eth-on-NanoPi-R2S.patch b/target/linux/rockchip-rk3328/patches-5.4/103-arm64-rockchip-add-OF-node-for-USB-eth-on-NanoPi-R2S.patch
 new file mode 100644
-index 0000000000..3b97ecde9e
+index 000000000..3b97ecde9
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/103-arm64-rockchip-add-OF-node-for-USB-eth-on-NanoPi-R2S.patch
 @@ -0,0 +1,28 @@
@@ -5997,7 +5997,7 @@ index 0000000000..3b97ecde9e
 + };
 diff --git a/target/linux/rockchip-rk3328/patches-5.4/900-rockchip-nanopi-r2s-improve-booting-on-SD-Card.patch b/target/linux/rockchip-rk3328/patches-5.4/900-rockchip-nanopi-r2s-improve-booting-on-SD-Card.patch
 new file mode 100644
-index 0000000000..fc0d6b81bc
+index 000000000..fc0d6b81b
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/patches-5.4/900-rockchip-nanopi-r2s-improve-booting-on-SD-Card.patch
 @@ -0,0 +1,42 @@

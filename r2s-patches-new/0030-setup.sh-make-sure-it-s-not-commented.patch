@@ -1,7 +1,7 @@
-From d9585ce5497b8a3d7f40eb84f512d4c7ff0b21e9 Mon Sep 17 00:00:00 2001
+From ea667fbe5eeeeb39b956056a6e3984201f6893ea Mon Sep 17 00:00:00 2001
 From: Chuck <fanck0605@qq.com>
 Date: Wed, 15 Apr 2020 12:33:31 +0800
-Subject: [PATCH 30/39] setup.sh: make sure it's not commented
+Subject: [PATCH 30/42] setup.sh: make sure it's not commented
 
 If I had already commented `invalid users`, there would have been two `#` in front of it.
 ---
@@ -9,7 +9,7 @@ If I had already commented `invalid users`, there would have been two `#` in fro
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/package/base-files/files/root/setup.sh b/package/base-files/files/root/setup.sh
-index dba3b02..7f7d91f 100644
+index dba3b0296..7f7d91f46 100644
 --- a/package/base-files/files/root/setup.sh
 +++ b/package/base-files/files/root/setup.sh
 @@ -118,9 +118,9 @@ if [ ${ENABLE_SIMPLIFIED_SETTINGS} -eq 1 ]; then

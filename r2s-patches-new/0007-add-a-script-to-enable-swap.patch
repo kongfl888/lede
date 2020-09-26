@@ -1,7 +1,7 @@
-From 638ee933fde594e70a76a7ce7a655a5721df168e Mon Sep 17 00:00:00 2001
+From 924f2e0530d91c8428e86c1bd3801ba4d37812aa Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Sat, 14 Dec 2019 15:52:26 +0800
-Subject: [PATCH 07/39] add a script to enable swap
+Subject: [PATCH 07/42] add a script to enable swap
 
 ---
  package/base-files/files/etc/enable-swap.sh | 50 +++++++++++++++++++++++++++++
@@ -10,7 +10,7 @@ Subject: [PATCH 07/39] add a script to enable swap
 
 diff --git a/package/base-files/files/etc/enable-swap.sh b/package/base-files/files/etc/enable-swap.sh
 new file mode 100755
-index 0000000..695365c
+index 000000000..695365c78
 --- /dev/null
 +++ b/package/base-files/files/etc/enable-swap.sh
 @@ -0,0 +1,50 @@

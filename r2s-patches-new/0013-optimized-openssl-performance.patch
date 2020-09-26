@@ -1,14 +1,14 @@
-From 8830addea79e97edefdfc536a4cbdb406370ef53 Mon Sep 17 00:00:00 2001
+From ccee561c2308f9948c8e8b9f97f1cce0ed85ea05 Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Thu, 20 Feb 2020 02:39:20 +0800
-Subject: [PATCH 13/39] optimized openssl performance
+Subject: [PATCH 13/42] optimized openssl performance
 
 ---
  package/libs/openssl/Makefile | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/package/libs/openssl/Makefile b/package/libs/openssl/Makefile
-index 0db051b..434a03a 100644
+index 0db051b6e..434a03aed 100644
 --- a/package/libs/openssl/Makefile
 +++ b/package/libs/openssl/Makefile
 @@ -341,7 +341,6 @@ define Build/Configure

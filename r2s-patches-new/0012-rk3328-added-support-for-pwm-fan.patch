@@ -1,7 +1,7 @@
-From e87fbefdc552eb8c64887b9196a7c85a6c113b84 Mon Sep 17 00:00:00 2001
+From b41761016d0081d4292524d7feb11158f2e030ca Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Tue, 18 Feb 2020 17:52:55 +0800
-Subject: [PATCH 12/39] rk3328: added support for pwm fan
+Subject: [PATCH 12/42] rk3328: added support for pwm fan
 
 ---
  .../base-files/etc/init.d/fa-rk3328-pwmfan         |  8 +++++++
@@ -15,7 +15,7 @@ Subject: [PATCH 12/39] rk3328: added support for pwm fan
 
 diff --git a/target/linux/rockchip-rk3328/base-files/etc/init.d/fa-rk3328-pwmfan b/target/linux/rockchip-rk3328/base-files/etc/init.d/fa-rk3328-pwmfan
 new file mode 100755
-index 0000000..23ad86e
+index 000000000..23ad86e2a
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/base-files/etc/init.d/fa-rk3328-pwmfan
 @@ -0,0 +1,8 @@
@@ -29,7 +29,7 @@ index 0000000..23ad86e
 +}
 diff --git a/target/linux/rockchip-rk3328/base-files/etc/rc.d/S96fa-rk3328-pwmfan b/target/linux/rockchip-rk3328/base-files/etc/rc.d/S96fa-rk3328-pwmfan
 new file mode 120000
-index 0000000..4faadd7
+index 000000000..4faadd728
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/base-files/etc/rc.d/S96fa-rk3328-pwmfan
 @@ -0,0 +1 @@
@@ -39,7 +39,7 @@ diff --git a/target/linux/rockchip-rk3328/base-files/usr/bin/start-rk3399-pwm-fa
 similarity index 54%
 rename from target/linux/rockchip-rk3328/base-files/usr/bin/start-rk3399-pwm-fan.sh
 rename to target/linux/rockchip-rk3328/base-files/usr/bin/start-rk3328-pwm-fan.sh
-index b250c3d..abd88b9 100755
+index b250c3d78..abd88b952 100755
 --- a/target/linux/rockchip-rk3328/base-files/usr/bin/start-rk3399-pwm-fan.sh
 +++ b/target/linux/rockchip-rk3328/base-files/usr/bin/start-rk3328-pwm-fan.sh
 @@ -1,24 +1,29 @@
@@ -94,7 +94,7 @@ index b250c3d..abd88b9 100755
  
  	sleep 2s;
 diff --git a/target/linux/rockchip-rk3399/base-files/usr/bin/start-rk3399-pwm-fan.sh b/target/linux/rockchip-rk3399/base-files/usr/bin/start-rk3399-pwm-fan.sh
-index b250c3d..0a8ca03 100755
+index b250c3d78..0a8ca03f3 100755
 --- a/target/linux/rockchip-rk3399/base-files/usr/bin/start-rk3399-pwm-fan.sh
 +++ b/target/linux/rockchip-rk3399/base-files/usr/bin/start-rk3399-pwm-fan.sh
 @@ -1,5 +1,9 @@

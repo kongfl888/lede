@@ -1,7 +1,7 @@
-From 4c422c871fde4211c7596715cb229501eae5a410 Mon Sep 17 00:00:00 2001
+From a3f91b623fb840212441c518f6a0f6c768a75e81 Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Thu, 27 Feb 2020 20:40:42 +0800
-Subject: [PATCH 21/39] rk3328: added usb 5g wifi driver: RTL8821CU
+Subject: [PATCH 21/42] rk3328: added usb 5g wifi driver: RTL8821CU
 
 you need to update the following directory for this commit to work:
     repo sync scripts/sd-fuse
@@ -12,7 +12,7 @@ you need to update the following directory for this commit to work:
 
 diff --git a/target/linux/rockchip-rk3328/base-files/etc/modules.d/10-rtl8821cu b/target/linux/rockchip-rk3328/base-files/etc/modules.d/10-rtl8821cu
 new file mode 100755
-index 0000000..d3eab79
+index 000000000..d3eab7966
 --- /dev/null
 +++ b/target/linux/rockchip-rk3328/base-files/etc/modules.d/10-rtl8821cu
 @@ -0,0 +1 @@

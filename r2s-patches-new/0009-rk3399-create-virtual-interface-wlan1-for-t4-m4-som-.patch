@@ -1,7 +1,7 @@
-From b823e0fc087527ccd6a40badcb2c8ae20da693ed Mon Sep 17 00:00:00 2001
+From 32160632937322d65b92ac790613278c4932f6da Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Sun, 19 Jan 2020 15:13:43 +0800
-Subject: [PATCH 09/39] rk3399: create virtual-interface wlan1 for
+Subject: [PATCH 09/42] rk3399: create virtual-interface wlan1 for
  t4/m4/som-rk3399
 
 ---
@@ -11,7 +11,7 @@ Subject: [PATCH 09/39] rk3399: create virtual-interface wlan1 for
 
 diff --git a/package/base-files/files/etc/hotplug.d/ieee80211/09-wireless-bcm4356 b/package/base-files/files/etc/hotplug.d/ieee80211/09-wireless-bcm4356
 new file mode 100755
-index 0000000..92f2b7d
+index 000000000..92f2b7dce
 --- /dev/null
 +++ b/package/base-files/files/etc/hotplug.d/ieee80211/09-wireless-bcm4356
 @@ -0,0 +1,22 @@

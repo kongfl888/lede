@@ -1,14 +1,14 @@
-From 314b571edae5d5e29b32674b7a6c9694f7b1a5e5 Mon Sep 17 00:00:00 2001
+From db88e82a84f9b711a35d93a028b59bcd70bb1bd0 Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Fri, 28 Feb 2020 12:22:18 +0800
-Subject: [PATCH 25/39] 1) disable ipv6 dhcp 2) fix netdata issue
+Subject: [PATCH 25/42] 1) disable ipv6 dhcp 2) fix netdata issue
 
 ---
  package/base-files/files/root/setup.sh | 9 +++++++++
  1 file changed, 9 insertions(+)
 
 diff --git a/package/base-files/files/root/setup.sh b/package/base-files/files/root/setup.sh
-index 9fece95..03bd658 100644
+index 9fece959f..03bd65896 100644
 --- a/package/base-files/files/root/setup.sh
 +++ b/package/base-files/files/root/setup.sh
 @@ -117,4 +117,13 @@ if [ ${NEED_RESTART_SERVICE} -eq 1 ]; then

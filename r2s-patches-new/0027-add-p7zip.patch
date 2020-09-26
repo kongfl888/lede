@@ -1,7 +1,7 @@
-From 5df9c190c7d0443b5618c3fd1a9bb17077f433cf Mon Sep 17 00:00:00 2001
+From cf7757aedc1bafdd99bd3c65ef071d4d39b2e35a Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Tue, 14 Apr 2020 13:12:26 +0800
-Subject: [PATCH 27/39] add p7zip
+Subject: [PATCH 27/42] add p7zip
 
 ---
  package/utils/p7zip/Makefile | 34 ++++++++++++++++++++++++++++++++++
@@ -10,7 +10,7 @@ Subject: [PATCH 27/39] add p7zip
 
 diff --git a/package/utils/p7zip/Makefile b/package/utils/p7zip/Makefile
 new file mode 100644
-index 0000000..400a5b1
+index 000000000..400a5b1ef
 --- /dev/null
 +++ b/package/utils/p7zip/Makefile
 @@ -0,0 +1,34 @@

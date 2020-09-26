@@ -1,14 +1,14 @@
-From 1d900a2690f0bfa290f4e3a4b6bb5a53e8f84a63 Mon Sep 17 00:00:00 2001
+From fec9c93c12ef8fa5ec9e1ab7efc952be6cfe0479 Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Sat, 11 Apr 2020 09:57:42 +0800
-Subject: [PATCH 26/39] Re-enable ipv6
+Subject: [PATCH 26/42] Re-enable ipv6
 
 ---
  package/base-files/files/root/setup.sh | 6 ------
  1 file changed, 6 deletions(-)
 
 diff --git a/package/base-files/files/root/setup.sh b/package/base-files/files/root/setup.sh
-index 03bd658..a207f7e 100644
+index 03bd65896..a207f7e32 100644
 --- a/package/base-files/files/root/setup.sh
 +++ b/package/base-files/files/root/setup.sh
 @@ -120,10 +120,4 @@ fi

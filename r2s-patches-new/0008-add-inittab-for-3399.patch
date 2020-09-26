@@ -1,7 +1,7 @@
-From aaca539fe05ea08a26314e6ae81e49c8c4306ca0 Mon Sep 17 00:00:00 2001
+From e4e70a2160efa1ba507124761753cc2f81aad7ef Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Fri, 3 Jan 2020 18:49:08 +0800
-Subject: [PATCH 08/39] add inittab for 3399
+Subject: [PATCH 08/42] add inittab for 3399
 
 ---
  target/linux/rockchip-rk3399/base-files/etc/inittab | 5 +++++
@@ -10,7 +10,7 @@ Subject: [PATCH 08/39] add inittab for 3399
 
 diff --git a/target/linux/rockchip-rk3399/base-files/etc/inittab b/target/linux/rockchip-rk3399/base-files/etc/inittab
 new file mode 100644
-index 0000000..be81ab3
+index 000000000..be81ab3e2
 --- /dev/null
 +++ b/target/linux/rockchip-rk3399/base-files/etc/inittab
 @@ -0,0 +1,5 @@

@@ -1,14 +1,14 @@
-From 3c31aa45ed6b25a80d433f62178f511667e6f096 Mon Sep 17 00:00:00 2001
+From fdb131e9e5922e5d9e35df36a33f9ea215f58c2e Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Wed, 19 Feb 2020 01:43:16 -0500
-Subject: [PATCH 02/39] enable ipv6 for docker-ce
+Subject: [PATCH 02/42] enable ipv6 for docker-ce
 
 ---
  package/base-files/files/etc/sysctl.conf | 4 ++++
  1 file changed, 4 insertions(+)
 
 diff --git a/package/base-files/files/etc/sysctl.conf b/package/base-files/files/etc/sysctl.conf
-index ae04212..b1e104d 100644
+index ae04212f4..b1e104db4 100644
 --- a/package/base-files/files/etc/sysctl.conf
 +++ b/package/base-files/files/etc/sysctl.conf
 @@ -1 +1,5 @@

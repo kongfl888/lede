@@ -1,7 +1,7 @@
-From 528a76bad4d68687337802c6f437fb6f3d1cb7e4 Mon Sep 17 00:00:00 2001
+From 9fc35b1bde119430cd0085fd04bc5ad198daa02f Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Mon, 31 Aug 2020 15:57:25 +0800
-Subject: [PATCH] rk3328: remove fa-rk3328-misc
+Subject: [PATCH 36/42] rk3328: remove fa-rk3328-misc
 
 ---
  .../linux/rockchip-rk3328/base-files/etc/init.d/fa-rk3328-misc   | 9 ---------
@@ -12,14 +12,14 @@ Subject: [PATCH] rk3328: remove fa-rk3328-misc
 
 diff --git a/target/linux/rockchip-rk3328/base-files/etc/init.d/fa-rk3328-misc b/target/linux/rockchip-rk3328/base-files/etc/init.d/fa-rk3328-misc
 deleted file mode 100755
-index af44f78a86..0000000000
+index 415cd411b..000000000
 --- a/target/linux/rockchip-rk3328/base-files/etc/init.d/fa-rk3328-misc
 +++ /dev/null
 @@ -1,9 +0,0 @@
 -#!/bin/sh /etc/rc.common
 -
 -START=96
-- 
+-
 -start() {
 -    [ -f /proc/irq/28/smp_affinity ] && echo 8 > /proc/irq/28/smp_affinity
 -    echo ondemand > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
@@ -27,7 +27,7 @@ index af44f78a86..0000000000
 -
 diff --git a/target/linux/rockchip-rk3328/base-files/etc/rc.d/S96fa-rk3328-misc b/target/linux/rockchip-rk3328/base-files/etc/rc.d/S96fa-rk3328-misc
 deleted file mode 120000
-index dbf8b5733f..0000000000
+index dbf8b5733..000000000
 --- a/target/linux/rockchip-rk3328/base-files/etc/rc.d/S96fa-rk3328-misc
 +++ /dev/null
 @@ -1 +0,0 @@

@@ -1,7 +1,7 @@
-From aef336f80319292fd83a97e4084f87869dc06515 Mon Sep 17 00:00:00 2001
+From d7994a57cff190fae2505a3590b4557b3531f390 Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Thu, 28 Nov 2019 14:16:20 +0800
-Subject: [PATCH 01/39] Apply the changes from 18.06.1 commit-id:
+Subject: [PATCH 01/42] Apply the changes from 18.06.1 commit-id:
  e31bc21b9514067cd0a305539ac0ef7e1bd94a13
 
 ---
@@ -106,7 +106,7 @@ Subject: [PATCH 01/39] Apply the changes from 18.06.1 commit-id:
  create mode 100644 target/linux/sunxi/base-files/usr/bin/cpu_freq
 
 diff --git a/.gitignore b/.gitignore
-index 2e92392..01540ce 100644
+index 2e9239279..01540ce4b 100644
 --- a/.gitignore
 +++ b/.gitignore
 @@ -1,11 +1,12 @@
@@ -130,7 +130,7 @@ index 2e92392..01540ce 100644
  /tmp
 diff --git a/friendlyelec/.gitignore b/friendlyelec/.gitignore
 new file mode 100644
-index 0000000..1c37a4d
+index 000000000..1c37a4d2e
 --- /dev/null
 +++ b/friendlyelec/.gitignore
 @@ -0,0 +1,3 @@
@@ -139,7 +139,7 @@ index 0000000..1c37a4d
 +1.sh
 diff --git a/friendlyelec/build.sh b/friendlyelec/build.sh
 new file mode 100644
-index 0000000..8c32d4b
+index 000000000..8c32d4b27
 --- /dev/null
 +++ b/friendlyelec/build.sh
 @@ -0,0 +1,63 @@
@@ -208,7 +208,7 @@ index 0000000..8c32d4b
 +create_rootfs_tgz
 diff --git a/friendlyelec/config_nanopi-h3.seed b/friendlyelec/config_nanopi-h3.seed
 new file mode 100644
-index 0000000..736dce4
+index 000000000..736dce4b2
 --- /dev/null
 +++ b/friendlyelec/config_nanopi-h3.seed
 @@ -0,0 +1,128 @@
@@ -342,7 +342,7 @@ index 0000000..736dce4
 +# CONFIG_TARGET_DEVICE_sunxi_cortexa7_DEVICE_sun8i-h3-orangepi-plus is not set
 diff --git a/friendlyelec/config_nanopi-h5.seed b/friendlyelec/config_nanopi-h5.seed
 new file mode 100644
-index 0000000..0060800
+index 000000000..006080089
 --- /dev/null
 +++ b/friendlyelec/config_nanopi-h5.seed
 @@ -0,0 +1,114 @@
@@ -462,14 +462,14 @@ index 0000000..0060800
 +# CONFIG_TARGET_DEVICE_sunxi_cortexa53_DEVICE_sun50i-h5-orangepi-zero-plus is not set
 diff --git a/friendlyelec/config_nanopi-h6.seed b/friendlyelec/config_nanopi-h6.seed
 new file mode 100644
-index 0000000..af92920
+index 000000000..af92920d6
 --- /dev/null
 +++ b/friendlyelec/config_nanopi-h6.seed
 @@ -0,0 +1 @@
 +config_nanopi-h5.seed
 \ No newline at end of file
 diff --git a/package/base-files/files/bin/config_generate b/package/base-files/files/bin/config_generate
-index abb1388..fe550b9 100755
+index abb1388ba..fe550b91b 100755
 --- a/package/base-files/files/bin/config_generate
 +++ b/package/base-files/files/bin/config_generate
 @@ -100,7 +100,7 @@ generate_network() {
@@ -492,13 +492,13 @@ index abb1388..fe550b9 100755
  		set system.@system[-1].log_size='64'
 diff --git a/package/base-files/files/etc/.gitignore b/package/base-files/files/etc/.gitignore
 new file mode 100644
-index 0000000..577f99e
+index 000000000..577f99e98
 --- /dev/null
 +++ b/package/base-files/files/etc/.gitignore
 @@ -0,0 +1 @@
 +/rom-version
 diff --git a/package/base-files/files/etc/banner b/package/base-files/files/etc/banner
-index f3af3c0..b4943e0 100644
+index f3af3c014..b4943e07d 100644
 --- a/package/base-files/files/etc/banner
 +++ b/package/base-files/files/etc/banner
 @@ -1,8 +1,8 @@
@@ -518,7 +518,7 @@ index f3af3c0..b4943e0 100644
   -----------------------------------------------------
 diff --git a/package/base-files/files/etc/hotplug.d/usb/30-usb_wifi_huawei b/package/base-files/files/etc/hotplug.d/usb/30-usb_wifi_huawei
 new file mode 100644
-index 0000000..964795f
+index 000000000..964795f31
 --- /dev/null
 +++ b/package/base-files/files/etc/hotplug.d/usb/30-usb_wifi_huawei
 @@ -0,0 +1,42 @@
@@ -566,7 +566,7 @@ index 0000000..964795f
 +fi
 diff --git a/package/base-files/files/etc/hotplug.d/usb/31-usb_wifi b/package/base-files/files/etc/hotplug.d/usb/31-usb_wifi
 new file mode 100644
-index 0000000..0323d58
+index 000000000..0323d58f3
 --- /dev/null
 +++ b/package/base-files/files/etc/hotplug.d/usb/31-usb_wifi
 @@ -0,0 +1,75 @@
@@ -647,41 +647,41 @@ index 0000000..0323d58
 +fi
 diff --git a/package/base-files/files/etc/modules.d/10-8152 b/package/base-files/files/etc/modules.d/10-8152
 new file mode 100644
-index 0000000..261be14
+index 000000000..261be141e
 --- /dev/null
 +++ b/package/base-files/files/etc/modules.d/10-8152
 @@ -0,0 +1 @@
 +r8152
 diff --git a/package/base-files/files/etc/modules.d/90-8189es b/package/base-files/files/etc/modules.d/90-8189es
 new file mode 100644
-index 0000000..5157d88
+index 000000000..5157d8819
 --- /dev/null
 +++ b/package/base-files/files/etc/modules.d/90-8189es
 @@ -0,0 +1 @@
 +8189es
 diff --git a/package/base-files/files/etc/modules.d/90-8821cu b/package/base-files/files/etc/modules.d/90-8821cu
 new file mode 100644
-index 0000000..ba36e9b
+index 000000000..ba36e9b8e
 --- /dev/null
 +++ b/package/base-files/files/etc/modules.d/90-8821cu
 @@ -0,0 +1 @@
 +8821cu
 diff --git a/package/base-files/files/etc/modules.d/90-cdc_ether b/package/base-files/files/etc/modules.d/90-cdc_ether
 new file mode 100644
-index 0000000..de6e227
+index 000000000..de6e227be
 --- /dev/null
 +++ b/package/base-files/files/etc/modules.d/90-cdc_ether
 @@ -0,0 +1 @@
 +cdc_ether
 diff --git a/package/base-files/files/etc/modules.d/xradio_wlan b/package/base-files/files/etc/modules.d/xradio_wlan
 new file mode 100644
-index 0000000..20db7ac
+index 000000000..20db7ac3a
 --- /dev/null
 +++ b/package/base-files/files/etc/modules.d/xradio_wlan
 @@ -0,0 +1 @@
 +xradio_wlan
 diff --git a/package/base-files/files/etc/rc.local b/package/base-files/files/etc/rc.local
-index 5639477..a07d8a4 100644
+index 56394773c..a07d8a48d 100644
 --- a/package/base-files/files/etc/rc.local
 +++ b/package/base-files/files/etc/rc.local
 @@ -1,4 +1,14 @@
@@ -701,7 +701,7 @@ index 5639477..a07d8a4 100644
  exit 0
 diff --git a/package/base-files/files/root/setup.sh b/package/base-files/files/root/setup.sh
 new file mode 100644
-index 0000000..babe5b6
+index 000000000..babe5b6a5
 --- /dev/null
 +++ b/package/base-files/files/root/setup.sh
 @@ -0,0 +1,114 @@
@@ -11539,7 +11539,7 @@ literal 0
 HcmV?d00001
 
 diff --git a/package/kernel/mac80211/files/lib/netifd/wireless/mac80211.sh b/package/kernel/mac80211/files/lib/netifd/wireless/mac80211.sh
-index de003e3..676ee6b 100644
+index de003e3d2..676ee6bae 100644
 --- a/package/kernel/mac80211/files/lib/netifd/wireless/mac80211.sh
 +++ b/package/kernel/mac80211/files/lib/netifd/wireless/mac80211.sh
 @@ -508,8 +508,12 @@ mac80211_prepare_vif() {
@@ -11566,7 +11566,7 @@ index de003e3..676ee6b 100644
  }
  
 diff --git a/package/utils/usbmode/Makefile b/package/utils/usbmode/Makefile
-index e3b457e..b75e937 100644
+index e3b457efd..b75e937d7 100644
 --- a/package/utils/usbmode/Makefile
 +++ b/package/utils/usbmode/Makefile
 @@ -66,7 +66,8 @@ define Package/usb-modeswitch/install
@@ -11581,7 +11581,7 @@ index e3b457e..b75e937 100644
  endef
 diff --git a/package/utils/usbmode/files/usb-mode.json b/package/utils/usbmode/files/usb-mode.json
 new file mode 100644
-index 0000000..8db5b03
+index 000000000..8db5b0340
 --- /dev/null
 +++ b/package/utils/usbmode/files/usb-mode.json
 @@ -0,0 +1,3144 @@
@@ -14731,7 +14731,7 @@ index 0000000..8db5b03
 +}
 diff --git a/target/linux/nexell-s5p4418/Makefile b/target/linux/nexell-s5p4418/Makefile
 new file mode 100644
-index 0000000..d8997d9
+index 000000000..d8997d977
 --- /dev/null
 +++ b/target/linux/nexell-s5p4418/Makefile
 @@ -0,0 +1,30 @@
@@ -14767,7 +14767,7 @@ index 0000000..d8997d9
 +$(eval $(call BuildTarget))
 diff --git a/target/linux/nexell-s5p4418/base-files/etc/board.d/01_leds b/target/linux/nexell-s5p4418/base-files/etc/board.d/01_leds
 new file mode 100644
-index 0000000..984e254
+index 000000000..984e25495
 --- /dev/null
 +++ b/target/linux/nexell-s5p4418/base-files/etc/board.d/01_leds
 @@ -0,0 +1,16 @@
@@ -14789,7 +14789,7 @@ index 0000000..984e254
 +exit 0
 diff --git a/target/linux/nexell-s5p4418/base-files/etc/board.d/02_network b/target/linux/nexell-s5p4418/base-files/etc/board.d/02_network
 new file mode 100644
-index 0000000..1af2b2a
+index 000000000..1af2b2a10
 --- /dev/null
 +++ b/target/linux/nexell-s5p4418/base-files/etc/board.d/02_network
 @@ -0,0 +1,27 @@
@@ -14822,14 +14822,14 @@ index 0000000..1af2b2a
 +exit 0
 diff --git a/target/linux/nexell-s5p4418/base-files/etc/modules.d/10-bcmdhd b/target/linux/nexell-s5p4418/base-files/etc/modules.d/10-bcmdhd
 new file mode 100644
-index 0000000..383470a
+index 000000000..383470a60
 --- /dev/null
 +++ b/target/linux/nexell-s5p4418/base-files/etc/modules.d/10-bcmdhd
 @@ -0,0 +1 @@
 +bcmdhd op_mode=0x0002
 diff --git a/target/linux/nexell-s5p4418/base-files/lib/upgrade/platform.sh b/target/linux/nexell-s5p4418/base-files/lib/upgrade/platform.sh
 new file mode 100644
-index 0000000..88ef479
+index 000000000..88ef4790e
 --- /dev/null
 +++ b/target/linux/nexell-s5p4418/base-files/lib/upgrade/platform.sh
 @@ -0,0 +1,89 @@
@@ -14924,7 +14924,7 @@ index 0000000..88ef479
 +}
 diff --git a/target/linux/nexell-s5p4418/config-4.14 b/target/linux/nexell-s5p4418/config-4.14
 new file mode 100644
-index 0000000..197e099
+index 000000000..197e099ab
 --- /dev/null
 +++ b/target/linux/nexell-s5p4418/config-4.14
 @@ -0,0 +1,597 @@
@@ -15527,7 +15527,7 @@ index 0000000..197e099
 +CONFIG_ZBOOT_ROM_TEXT=0
 diff --git a/target/linux/nexell-s5p4418/image/Makefile b/target/linux/nexell-s5p4418/image/Makefile
 new file mode 100644
-index 0000000..6d339c4
+index 000000000..6d339c4f8
 --- /dev/null
 +++ b/target/linux/nexell-s5p4418/image/Makefile
 @@ -0,0 +1,10 @@
@@ -15543,7 +15543,7 @@ index 0000000..6d339c4
 +$(eval $(call BuildImage))
 diff --git a/target/linux/nexell-s5p4418/modules.mk b/target/linux/nexell-s5p4418/modules.mk
 new file mode 100644
-index 0000000..e304251
+index 000000000..e304251b1
 --- /dev/null
 +++ b/target/linux/nexell-s5p4418/modules.mk
 @@ -0,0 +1,5 @@
@@ -15554,7 +15554,7 @@ index 0000000..e304251
 +#
 diff --git a/target/linux/nexell-s5p4418/profiles/00-default.mk b/target/linux/nexell-s5p4418/profiles/00-default.mk
 new file mode 100644
-index 0000000..48d4145
+index 000000000..48d41451c
 --- /dev/null
 +++ b/target/linux/nexell-s5p4418/profiles/00-default.mk
 @@ -0,0 +1,19 @@
@@ -15579,7 +15579,7 @@ index 0000000..48d4145
 +$(eval $(call Profile,Default))
 diff --git a/target/linux/nexell-s5p6818/Makefile b/target/linux/nexell-s5p6818/Makefile
 new file mode 100644
-index 0000000..3d34fb4
+index 000000000..3d34fb482
 --- /dev/null
 +++ b/target/linux/nexell-s5p6818/Makefile
 @@ -0,0 +1,26 @@
@@ -15611,7 +15611,7 @@ index 0000000..3d34fb4
 +$(eval $(call BuildTarget))
 diff --git a/target/linux/nexell-s5p6818/base-files/etc/board.d/01_leds b/target/linux/nexell-s5p6818/base-files/etc/board.d/01_leds
 new file mode 100644
-index 0000000..6a22098
+index 000000000..6a22098d2
 --- /dev/null
 +++ b/target/linux/nexell-s5p6818/base-files/etc/board.d/01_leds
 @@ -0,0 +1,16 @@
@@ -15633,7 +15633,7 @@ index 0000000..6a22098
 +exit 0
 diff --git a/target/linux/nexell-s5p6818/base-files/etc/board.d/02_network b/target/linux/nexell-s5p6818/base-files/etc/board.d/02_network
 new file mode 100644
-index 0000000..c9736d5
+index 000000000..c9736d599
 --- /dev/null
 +++ b/target/linux/nexell-s5p6818/base-files/etc/board.d/02_network
 @@ -0,0 +1,26 @@
@@ -15665,14 +15665,14 @@ index 0000000..c9736d5
 +exit 0
 diff --git a/target/linux/nexell-s5p6818/base-files/etc/modules.d/10-bcmdhd b/target/linux/nexell-s5p6818/base-files/etc/modules.d/10-bcmdhd
 new file mode 100644
-index 0000000..383470a
+index 000000000..383470a60
 --- /dev/null
 +++ b/target/linux/nexell-s5p6818/base-files/etc/modules.d/10-bcmdhd
 @@ -0,0 +1 @@
 +bcmdhd op_mode=0x0002
 diff --git a/target/linux/nexell-s5p6818/config-4.14 b/target/linux/nexell-s5p6818/config-4.14
 new file mode 100644
-index 0000000..fd627d6
+index 000000000..fd627d6a2
 --- /dev/null
 +++ b/target/linux/nexell-s5p6818/config-4.14
 @@ -0,0 +1,546 @@
@@ -16224,7 +16224,7 @@ index 0000000..fd627d6
 +CONFIG_XPS=y
 diff --git a/target/linux/nexell-s5p6818/image/Makefile b/target/linux/nexell-s5p6818/image/Makefile
 new file mode 100644
-index 0000000..203f0ea
+index 000000000..203f0ea5c
 --- /dev/null
 +++ b/target/linux/nexell-s5p6818/image/Makefile
 @@ -0,0 +1,21 @@
@@ -16251,7 +16251,7 @@ index 0000000..203f0ea
 +$(eval $(call BuildImage))
 diff --git a/target/linux/nexell-s5p6818/patches-4.14/0001-net-thunderx-add-support-for-rgmii-internal-delay-mo.patch b/target/linux/nexell-s5p6818/patches-4.14/0001-net-thunderx-add-support-for-rgmii-internal-delay-mo.patch
 new file mode 100644
-index 0000000..efb58f8
+index 000000000..efb58f872
 --- /dev/null
 +++ b/target/linux/nexell-s5p6818/patches-4.14/0001-net-thunderx-add-support-for-rgmii-internal-delay-mo.patch
 @@ -0,0 +1,139 @@
@@ -16396,7 +16396,7 @@ index 0000000..efb58f8
 +	/* Enable compensation controller and force the
 diff --git a/target/linux/nexell-s5p6818/patches-4.14/0001-net-thunderx-workaround-BGX-TX-Underflow-issue.patch b/target/linux/nexell-s5p6818/patches-4.14/0001-net-thunderx-workaround-BGX-TX-Underflow-issue.patch
 new file mode 100644
-index 0000000..a3d21fd
+index 000000000..a3d21fd8f
 --- /dev/null
 +++ b/target/linux/nexell-s5p6818/patches-4.14/0001-net-thunderx-workaround-BGX-TX-Underflow-issue.patch
 @@ -0,0 +1,110 @@
@@ -16512,7 +16512,7 @@ index 0000000..a3d21fd
 + #define BGX_MSIX_VEC_0_29_CTL		0x400008
 diff --git a/target/linux/nexell-s5p6818/profiles/00-default.mk b/target/linux/nexell-s5p6818/profiles/00-default.mk
 new file mode 100644
-index 0000000..5f98572
+index 000000000..5f985721b
 --- /dev/null
 +++ b/target/linux/nexell-s5p6818/profiles/00-default.mk
 @@ -0,0 +1,17 @@
@@ -16535,7 +16535,7 @@ index 0000000..5f98572
 +$(eval $(call Profile,Default))
 diff --git a/target/linux/rockchip-rk3399/Makefile b/target/linux/rockchip-rk3399/Makefile
 new file mode 100644
-index 0000000..8290698
+index 000000000..8290698e5
 --- /dev/null
 +++ b/target/linux/rockchip-rk3399/Makefile
 @@ -0,0 +1,26 @@
@@ -16567,7 +16567,7 @@ index 0000000..8290698
 +$(eval $(call BuildTarget))
 diff --git a/target/linux/rockchip-rk3399/base-files/etc/board.d/01_leds b/target/linux/rockchip-rk3399/base-files/etc/board.d/01_leds
 new file mode 100644
-index 0000000..3839f05
+index 000000000..3839f05d4
 --- /dev/null
 +++ b/target/linux/rockchip-rk3399/base-files/etc/board.d/01_leds
 @@ -0,0 +1,16 @@
@@ -16589,7 +16589,7 @@ index 0000000..3839f05
 +exit 0
 diff --git a/target/linux/rockchip-rk3399/base-files/etc/board.d/02_network b/target/linux/rockchip-rk3399/base-files/etc/board.d/02_network
 new file mode 100644
-index 0000000..41cb761
+index 000000000..41cb761d4
 --- /dev/null
 +++ b/target/linux/rockchip-rk3399/base-files/etc/board.d/02_network
 @@ -0,0 +1,24 @@
@@ -16619,14 +16619,14 @@ index 0000000..41cb761
 +exit 0
 diff --git a/target/linux/rockchip-rk3399/base-files/etc/modules.d/10-bcmdhd b/target/linux/rockchip-rk3399/base-files/etc/modules.d/10-bcmdhd
 new file mode 100644
-index 0000000..383470a
+index 000000000..383470a60
 --- /dev/null
 +++ b/target/linux/rockchip-rk3399/base-files/etc/modules.d/10-bcmdhd
 @@ -0,0 +1 @@
 +bcmdhd op_mode=0x0002
 diff --git a/target/linux/rockchip-rk3399/config-4.14 b/target/linux/rockchip-rk3399/config-4.14
 new file mode 100644
-index 0000000..fd627d6
+index 000000000..fd627d6a2
 --- /dev/null
 +++ b/target/linux/rockchip-rk3399/config-4.14
 @@ -0,0 +1,546 @@
@@ -17178,7 +17178,7 @@ index 0000000..fd627d6
 +CONFIG_XPS=y
 diff --git a/target/linux/rockchip-rk3399/image/Makefile b/target/linux/rockchip-rk3399/image/Makefile
 new file mode 100644
-index 0000000..203f0ea
+index 000000000..203f0ea5c
 --- /dev/null
 +++ b/target/linux/rockchip-rk3399/image/Makefile
 @@ -0,0 +1,21 @@
@@ -17205,7 +17205,7 @@ index 0000000..203f0ea
 +$(eval $(call BuildImage))
 diff --git a/target/linux/rockchip-rk3399/patches-4.14/0001-net-thunderx-add-support-for-rgmii-internal-delay-mo.patch b/target/linux/rockchip-rk3399/patches-4.14/0001-net-thunderx-add-support-for-rgmii-internal-delay-mo.patch
 new file mode 100644
-index 0000000..efb58f8
+index 000000000..efb58f872
 --- /dev/null
 +++ b/target/linux/rockchip-rk3399/patches-4.14/0001-net-thunderx-add-support-for-rgmii-internal-delay-mo.patch
 @@ -0,0 +1,139 @@
@@ -17350,7 +17350,7 @@ index 0000000..efb58f8
 +	/* Enable compensation controller and force the
 diff --git a/target/linux/rockchip-rk3399/patches-4.14/0001-net-thunderx-workaround-BGX-TX-Underflow-issue.patch b/target/linux/rockchip-rk3399/patches-4.14/0001-net-thunderx-workaround-BGX-TX-Underflow-issue.patch
 new file mode 100644
-index 0000000..a3d21fd
+index 000000000..a3d21fd8f
 --- /dev/null
 +++ b/target/linux/rockchip-rk3399/patches-4.14/0001-net-thunderx-workaround-BGX-TX-Underflow-issue.patch
 @@ -0,0 +1,110 @@
@@ -17466,7 +17466,7 @@ index 0000000..a3d21fd
 + #define BGX_MSIX_VEC_0_29_CTL		0x400008
 diff --git a/target/linux/rockchip-rk3399/profiles/00-default.mk b/target/linux/rockchip-rk3399/profiles/00-default.mk
 new file mode 100644
-index 0000000..5f98572
+index 000000000..5f985721b
 --- /dev/null
 +++ b/target/linux/rockchip-rk3399/profiles/00-default.mk
 @@ -0,0 +1,17 @@
@@ -17489,7 +17489,7 @@ index 0000000..5f98572
 +$(eval $(call Profile,Default))
 diff --git a/target/linux/sunxi/base-files/etc/board.d/01_leds b/target/linux/sunxi/base-files/etc/board.d/01_leds
 new file mode 100644
-index 0000000..8b58ef0
+index 000000000..8b58ef090
 --- /dev/null
 +++ b/target/linux/sunxi/base-files/etc/board.d/01_leds
 @@ -0,0 +1,20 @@
@@ -17514,7 +17514,7 @@ index 0000000..8b58ef0
 +
 +exit 0
 diff --git a/target/linux/sunxi/base-files/etc/board.d/02_network b/target/linux/sunxi/base-files/etc/board.d/02_network
-index 5cf000c..268fbdb 100755
+index 5cf000ccc..268fbdb2a 100755
 --- a/target/linux/sunxi/base-files/etc/board.d/02_network
 +++ b/target/linux/sunxi/base-files/etc/board.d/02_network
 @@ -18,6 +18,33 @@ olimex,a20-olinuxino-micro)
@@ -17553,7 +17553,7 @@ index 5cf000c..268fbdb 100755
  	;;
 diff --git a/target/linux/sunxi/base-files/usr/bin/cpu_freq b/target/linux/sunxi/base-files/usr/bin/cpu_freq
 new file mode 100644
-index 0000000..5f0be25
+index 000000000..5f0be25a1
 --- /dev/null
 +++ b/target/linux/sunxi/base-files/usr/bin/cpu_freq
 @@ -0,0 +1,120 @@
@@ -17679,7 +17679,7 @@ index 0000000..5f0be25
 +fi
 \ No newline at end of file
 diff --git a/target/linux/sunxi/image/cortexa53.mk b/target/linux/sunxi/image/cortexa53.mk
-index 7a70de4..59547f1 100644
+index 7a70de4df..59547f19f 100644
 --- a/target/linux/sunxi/image/cortexa53.mk
 +++ b/target/linux/sunxi/image/cortexa53.mk
 @@ -26,6 +26,9 @@ define Device/friendlyarm_nanopi-neo-plus2

@@ -1,14 +1,14 @@
-From abe787a6cc95424673b5376702427e8b8a0d2b13 Mon Sep 17 00:00:00 2001
+From db158648c278ec2f8355df11c8f9f8c9e65b7b4c Mon Sep 17 00:00:00 2001
 From: Chuck <fanck0605@qq.com>
 Date: Mon, 11 May 2020 18:18:06 +0800
-Subject: [PATCH 32/39] rk3328: adapt to rockchip-kernel's HZ settings
+Subject: [PATCH 32/42] rk3328: adapt to rockchip-kernel's HZ settings
 
 ---
  target/linux/rockchip-rk3328/config-4.14 | 3 +++
  1 file changed, 3 insertions(+)
 
 diff --git a/target/linux/rockchip-rk3328/config-4.14 b/target/linux/rockchip-rk3328/config-4.14
-index 09d22d5..5c559ff 100644
+index 09d22d517..5c559ff8e 100644
 --- a/target/linux/rockchip-rk3328/config-4.14
 +++ b/target/linux/rockchip-rk3328/config-4.14
 @@ -311,6 +311,9 @@ CONFIG_HUGETLB_PAGE=y

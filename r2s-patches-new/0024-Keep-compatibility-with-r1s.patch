@@ -1,14 +1,14 @@
-From 832355aac0fe1407283c18e0b159341c26612b8d Mon Sep 17 00:00:00 2001
+From b3b6c536daa2a65c751cd0a1f8d470e3acefd539 Mon Sep 17 00:00:00 2001
 From: Soff <soffchen@gmail.com>
 Date: Fri, 28 Feb 2020 00:35:08 +0800
-Subject: [PATCH 24/39] Keep compatibility with r1s
+Subject: [PATCH 24/42] Keep compatibility with r1s
 
 ---
  package/base-files/files/etc/hotplug.d/usb/31-usb_wifi | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/package/base-files/files/etc/hotplug.d/usb/31-usb_wifi b/package/base-files/files/etc/hotplug.d/usb/31-usb_wifi
-index cac908c..54a65c4 100644
+index cac908c7f..54a65c4d0 100644
 --- a/package/base-files/files/etc/hotplug.d/usb/31-usb_wifi
 +++ b/package/base-files/files/etc/hotplug.d/usb/31-usb_wifi
 @@ -3,7 +3,7 @@

@@ -1,7 +1,7 @@
-From 35b16210fe6a0621acdbc6bd2d50e70c19547ca3 Mon Sep 17 00:00:00 2001
+From 925fb861a139c625bbdec252924e467f23122e20 Mon Sep 17 00:00:00 2001
 From: kongfl888 K <kongfl888@outlook.com>
 Date: Wed, 9 Sep 2020 15:32:08 +0800
-Subject: [PATCH] rk3328:update config-5.4
+Subject: [PATCH 41/42] rk3328:update config-5.4
 
 Signed-off-by: kongfl888 K <kongfl888@outlook.com>
 ---
@@ -9,7 +9,7 @@ Signed-off-by: kongfl888 K <kongfl888@outlook.com>
  1 file changed, 672 insertions(+), 344 deletions(-)
 
 diff --git a/target/linux/rockchip-rk3328/config-5.4 b/target/linux/rockchip-rk3328/config-5.4
-index 698c0d44c0..fa210f5f10 100644
+index 698c0d44c..fa210f5f1 100644
 --- a/target/linux/rockchip-rk3328/config-5.4
 +++ b/target/linux/rockchip-rk3328/config-5.4
 @@ -1,48 +1,306 @@

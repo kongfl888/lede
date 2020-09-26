@@ -1,14 +1,14 @@
-From c825f7272a26a8f7473590434d96611609cf5140 Mon Sep 17 00:00:00 2001
+From bac25aa14575936ff5f324820f40fc5b1d89284a Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Tue, 14 Apr 2020 14:01:46 +0800
-Subject: [PATCH 29/39] initial settings for ttyd, samba, watchcat
+Subject: [PATCH 29/42] initial settings for ttyd, samba, watchcat
 
 ---
  package/base-files/files/root/setup.sh | 72 +++++++++++++++++++++-------------
  1 file changed, 45 insertions(+), 27 deletions(-)
 
 diff --git a/package/base-files/files/root/setup.sh b/package/base-files/files/root/setup.sh
-index a207f7e..dba3b02 100644
+index a207f7e32..dba3b0296 100644
 --- a/package/base-files/files/root/setup.sh
 +++ b/package/base-files/files/root/setup.sh
 @@ -1,5 +1,4 @@
